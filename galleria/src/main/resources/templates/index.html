@@ -46,7 +46,7 @@
 			<p>vediamo se funzia</p>
 		</div>
 		<!-- inzio form di acquisizione immagini -->
-		<form th:action="@{/galleria}" method="post" th:object="${}">
+		<form th:action="@{/galleria}" method="post">
 			<!-- contenitore di tutte le immagini (adattivo) -->
 			<div class="row">
 
@@ -58,7 +58,7 @@
 							<i class="fa fa-check hidden"></i>
 						</label>
 					</div>
-				</c:forEach>
+				</div>
 			</div>
 
 			<button type="submit" th:text="${pagPrec}">numeroPagPrec</button>
