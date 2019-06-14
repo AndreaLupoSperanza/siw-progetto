@@ -1,13 +1,13 @@
-package it.uniroma3.siw.galleria;
+package it.uniroma3.siw.demospring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GalleriaApplication {
+public class DemoSpringApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GalleriaApplication.class, args);
+		SpringApplication.run(DemoSpringApplication.class, args);
 	}
 
 }

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.uniroma3.siw</groupId>
-	<artifactId>galleria</artifactId>
+	<artifactId>demo-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>galleria</name>
+	<name>demo-spring</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -42,7 +42,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>

@@ -1,4 +1,4 @@
-package it.uniroma3.siw.galleria;
+package it.uniroma3.siw.demospring;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GalleriaApplicationTests {
+public class DemoSpringApplicationTests {
 
 	@Test
 	public void contextLoads() {
