@@ -46,7 +46,7 @@
 			<p>vediamo se funzia</p>
 		</div>
 		<!-- inzio form di acquisizione immagini -->
-		<form th:action="@{/galleria}" method="post">
+		<form th:action="@{/addFotoSelezionate}" method="post">
 			<!-- contenitore di tutte le immagini (adattivo) -->
 			<div class="row">
 
@@ -54,7 +54,8 @@
 					<div class="col-xs-4 text-center">
 						<label class="image-checkbox"> <img
 							class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
-							<input type="checkbox" name="listaFoto" value="${foto.link}" />
+							<!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
+							<input type="checkbox" th:name="listaFoto" th:value="*{foto.id}" />
 							<i class="fa fa-check hidden"></i>
 						</label>
 					</div>
