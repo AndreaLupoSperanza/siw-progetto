@@ -11,6 +11,8 @@ public class Foto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String link;
+	private Autore autore;
+	private Album album;
 	
 	public Long getId() {
 		return id;
@@ -24,7 +26,20 @@ public class Foto {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
-	
 
+	public Autore getAutore() {
+		return autore;
+	}
+
+	public void setAutore(Autore autore) {
+		this.autore = autore;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 }
