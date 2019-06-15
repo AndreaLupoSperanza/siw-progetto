@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class FotoService {
 
+	
     private final FotoRepository fotoRepository;
 
     public FotoService(FotoRepository fotoRepository) {
@@ -37,4 +38,9 @@ public class FotoService {
 
         return returnAllFotoSelezionate;
     }
+
+	public List<Foto> getSuccessiveFotoDaVisualizzare() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
