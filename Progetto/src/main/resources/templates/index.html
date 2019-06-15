@@ -55,15 +55,28 @@
 						<label class="image-checkbox"> <img
 							class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
 							<!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
-							<input type="checkbox" th:name="listaFoto" th:value="*{foto.id}" />
+							<input type="checkbox" th:name="listaFotoVisualizzate" th:value="*{foto.id}" />
+							<i class="fa fa-check hidden"></i>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+
+				<div th:each="foto : ${fotoSelezionate}">
+					<div class="col-xs-4 text-center">
+						<label class="image-checkbox"> <img
+							class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
+							<!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
+							<input type="checkbox" th:name="listaFotoVisualizzate" th:value="*{foto.id}" />
 							<i class="fa fa-check hidden"></i>
 						</label>
 					</div>
 				</div>
 			</div>
 
-			<button type="submit" th:text="${pagPrec}">numeroPagPrec</button>
-			<button type="submit" th:text="${pagSucc}">numeroPagSucc</button>
+			<button type="submit" value="${pagPrec}" th:text="${pagPrec}">numeroPagPrec</button>
+			<button type="submit" value="${pagSucc}" th:text="${pagSucc}">numeroPagSucc</button>
 			<button type="submit">"Fine Selezione"</button>
 		</form>
 	</div>

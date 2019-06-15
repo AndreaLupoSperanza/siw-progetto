@@ -31,7 +31,7 @@ public class GalleriaController {
 	
 
 	@RequestMapping(value = "/addFotoSelezionate", method = RequestMethod.POST)
-	public String prendiTutteLeFotoSelezionate(@RequestParam(value = "listaFoto") String[]  idFotoLista, 
+	public String prendiTutteLeFotoSelezionate(@RequestParam(value = "listaFotoVisualizzate") String[]  idFotoLista, 
 			Model model) {
 		List<Foto> fotoLista = new ArrayList<Foto>();
 		System.out.println("lunghezza idFotoLista: "+idFotoLista.length);
@@ -45,7 +45,7 @@ public class GalleriaController {
 			System.out.println("Foto richieste VUOTE");
 		}
 
-		model.addAttribute("fotoVisualizzate", fotoLista);
+		model.addAttribute("fotoSelezionate", fotoLista);
 		return "index";
 	}
 	
