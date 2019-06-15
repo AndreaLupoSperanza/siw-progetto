@@ -27,6 +27,9 @@ public class FotoService {
         allFoto.forEach(returnAllFoto::add);
 
         return returnAllFoto;
+        //perché non è solo
+        //return (List<Foto>)fotoRepository.findAll();
+        //?
     }
 
     public List<Foto> findAllFoto(List<Long> fotoIds) {
