@@ -37,7 +37,7 @@ public class GalleriaController {
 	 * prende le foto selezionate nella pagina, le salva nella sessione,
 	 * ed ritorna le nuove foto da selezionare
 	 */
-	@RequestMapping(value = "/getFotoSelezionate")
+	@RequestMapping(value = "/selezionaFoto", method = RequestMethod.POST)
 	public String getFotoSelezionate(@RequestParam(value = "fotoSelezione") 
 	String[] listFotoIds,
 	Model model,
@@ -49,7 +49,7 @@ public class GalleriaController {
 		 * se non le ho preparo la lista per accogliere le selezionateAdesso
 		 */
 		List<Foto> fotoSelezionatePrima = (List<Foto>) session.getAttribute("fotoSelezionatePrima");
-		if(fotoSelezionatePrima.isEmpty()) {
+		if(fotoSelezionatePrima==null) {
 			fotoSelezionatePrima = new ArrayList<Foto>();
 		}
 		//System.out.println("lunghezza fotoId: "+listFotoIds.length);
@@ -64,8 +64,6 @@ public class GalleriaController {
 		 */
 		if (listFotoIds == null || listFotoIds.length == 0) {
 			System.out.println("Foto richieste VUOTE");
-			List<Foto> successiveFotoDaVisualizzare = this.fotoService.getSuccessiveFotoDaVisualizzare();
-			model.addAttribute("fotoVisualizzate", successiveFotoDaVisualizzare);
 		}
 		/*
 		 * Altrimenti avrò selezionato delle foto 
@@ -86,10 +84,19 @@ public class GalleriaController {
 			fotoSelezionatePrima.addAll(fotoSelezionateAdesso);
 			//Metto le foto di prima e adesso in sessione come nuove selezionatePrima
 			session.setAttribute("fotoSelezionatePrima", fotoSelezionatePrima);
-			model.addAttribute("fotoVisualizzate", fotoSelezionatePrima);
 		}
+		
+		List<Foto> successiveFotoDaVisualizzare = this.fotoService.getSuccessiveFotoDaVisualizzare();
+		model.addAttribute("fotoVisualizzate", successiveFotoDaVisualizzare);
 
 		return prossimaPagina;
+	}
+	@RequestMapping("/getDettagliOrdine")
+	public String dettagliOrdinazione(Model model, 
+									HttpSession session) {
+		List<Foto> fotoSelezionate = (List<Foto>) session.getAttribute("fotoSelezionatePrima");
+		model.addAttribute("fotoSelezionate", fotoSelezionate);
+		return "dettagliOrdinazione";
 	}
 	
 //	@RequestMapping(value = "/getFotoSelezionate")
