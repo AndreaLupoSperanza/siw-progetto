@@ -1,51 +1,53 @@
 package it.uniroma3.siw.demospring.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import it.uniroma3.siw.demospring.services.FotoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import it.uniroma3.siw.demospring.model.Foto;
-import it.uniroma3.siw.demospring.repository.FotoRepository;
-
 
 @Controller
 public class GalleriaController {
-	
-	 @Autowired
-	 private FotoRepository fotoRepository;
-	
+
+	private FotoService fotoService;
+
+	public GalleriaController(FotoService fotoService) {
+		this.fotoService = fotoService;
+	}
+
 	@RequestMapping("/index")
-	public String paginaInizio(Model model) {
-		List<Foto> foto = (List<Foto>) this.fotoRepository.findAll();
-		model.addAttribute("fotoVisualizzate", foto);
+	public String index(Model model) {
+		List<Foto> allFoto = fotoService.findAllFoto();
+		model.addAttribute("fotoVisualizzate", allFoto);
 		return "index";
 	}
 	
 
-	@RequestMapping(value = "/addFotoSelezionate", method = RequestMethod.POST)
-	public String prendiTutteLeFotoSelezionate(@RequestParam(value = "listaFotoVisualizzate") String[]  idFotoLista, 
-			Model model) {
-		List<Foto> fotoLista = new ArrayList<Foto>();
-		System.out.println("lunghezza idFotoLista: "+idFotoLista.length);
-		try {
-			for(String idFotoSingola : idFotoLista) {
-				Long id = Long.parseLong(idFotoSingola.trim());
-				fotoLista.add(this.fotoRepository.findById(id).get());
-				System.out.println("id Foto sel: "+idFotoSingola);
-			}
-		}catch (NullPointerException e) {
+	@RequestMapping(value = "/getFotoSelezionate")
+	public String getFotoSelezionate(@RequestParam(value = "addFotoSelezionate") String[] listFotoIds,
+									 Model model) {
+		List<Foto> listFoto = new ArrayList<>();
+		System.out.println("lunghezza fotoId: "+listFotoIds.length);
+
+		List<Long> fotoIds = new ArrayList<>();
+
+		if (listFotoIds == null || listFotoIds.length == 0) {
 			System.out.println("Foto richieste VUOTE");
+			model.addAttribute("fotoVisualizzate", listFoto);
+		} else {
+			for(String idStringFoto : listFotoIds) {
+				Long idFoto = Long.parseLong(idStringFoto.trim());
+				System.out.println("id Foto sel: " + idFoto);
+				fotoIds.add(idFoto);
+			}
+			listFoto = fotoService.findAllFoto(fotoIds);
+			model.addAttribute("fotoVisualizzate", listFoto);
 		}
 
-		model.addAttribute("fotoSelezionate", fotoLista);
 		return "index";
 	}
 	
