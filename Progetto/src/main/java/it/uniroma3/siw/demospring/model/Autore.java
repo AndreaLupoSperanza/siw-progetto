@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Autore {
@@ -12,10 +14,11 @@ public class Autore {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String pseudonimo;
     private String nome;
-    private String cognome;
-    private Date dataNascita;
+    @OneToMany(mappedBy="autore")
+    private List<Foto> fotografie;
+    @OneToMany(mappedBy="autore")
+    private List<Album> album;
 
     public Long getId() {
         return id;
@@ -23,14 +26,6 @@ public class Autore {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getPseudonimo() {
-        return pseudonimo;
-    }
-
-    public void setPseudonimo(String pseudonimo) {
-        this.pseudonimo = pseudonimo;
     }
 
     public String getNome() {
@@ -41,19 +36,20 @@ public class Autore {
         this.nome = nome;
     }
 
-    public String getCognome() {
-        return cognome;
-    }
+	public List<Foto> getFotografie() {
+		return fotografie;
+	}
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
+	public void setFotografie(List<Foto> fotografie) {
+		this.fotografie = fotografie;
+	}
 
-    public Date getDataNascita() {
-        return dataNascita;
-    }
+	public List<Album> getAlbum() {
+		return album;
+	}
 
-    public void setDataNascita(Date dataNascita) {
-        this.dataNascita = dataNascita;
-    }
+	public void setAlbum(List<Album> album) {
+		this.album = album;
+	}
+    
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<head>
+<title th:text="${foto.nome}"></title>
+</head>
+<body>
+		<p><img th:src="${foto.link}"></p>
+		<p th:text="'Nome: '+${foto.nome}">Nome Foto</p>
+		<p th:text="'Album: '+${foto.album.nome}">Nome album</p>
+		<p th:text="'Fotografo: '+${foto.autore.nome}">Nome Fotografo</p>
+</body>
+</html>

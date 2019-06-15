@@ -1,11 +1,12 @@
 package it.uniroma3.siw.demospring.services;
 
-import it.uniroma3.siw.demospring.model.Foto;
-import it.uniroma3.siw.demospring.repository.FotoRepository;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import it.uniroma3.siw.demospring.model.Foto;
+import it.uniroma3.siw.demospring.repository.FotoRepository;
 
 @Service
 public class FotoService {
