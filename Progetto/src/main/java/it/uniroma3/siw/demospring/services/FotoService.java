@@ -3,7 +3,6 @@ package it.uniroma3.siw.demospring.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.demospring.model.Foto;
@@ -44,6 +43,10 @@ public class FotoService {
 	public List<Foto> getSuccessiveFotoDaVisualizzare() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Object findFotoById(Long id) {
+		return this.fotoRepository.findById(id).get();
 	}
 
 

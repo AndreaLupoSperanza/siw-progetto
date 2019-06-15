@@ -3,7 +3,6 @@ package it.uniroma3.siw.demospring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
 import it.uniroma3.siw.demospring.services.FotoService;
@@ -91,12 +90,29 @@ public class GalleriaController {
 
 		return prossimaPagina;
 	}
+	
+	/*
+	 * Serve per ottenere tutte le foto dell'ordine attuale
+	 */
 	@RequestMapping("/getDettagliOrdine")
 	public String dettagliOrdinazione(Model model, 
 									HttpSession session) {
 		List<Foto> fotoSelezionate = (List<Foto>) session.getAttribute("fotoSelezionatePrima");
 		model.addAttribute("fotoSelezionate", fotoSelezionate);
 		return "dettagliOrdinazione";
+	}
+	
+	
+	@RequestMapping(value="/foto/{id}", method = RequestMethod.GET)
+	public String getFoto(@PathVariable("id") Long id, Model model){
+		if (id!=null) {
+			model.addAttribute("foto",this.fotoService.findFotoById(id));
+			return "foto.html";
+		}
+		else {
+			model.addAttribute("fotoVisualizzate", this.fotoService.findAllFoto());
+			return "index";
+		}
 	}
 	
 //	@RequestMapping(value = "/getFotoSelezionate")
@@ -135,5 +151,6 @@ public class GalleriaController {
 //
 //		return "index";
 //	}
+
 
 }

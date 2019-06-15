@@ -42,24 +42,29 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Galleria</h1>
-			<p>vediamo se funzia</p>
+			<h1>Dettagli ordinazione attuale</h1>
+			<p>Queste sono le foto che hai selezionato</p>
+			<p>Se desideri eliminarne qualcuna puoi farlo</p>
 		</div>
-			<!-- contenitore di tutte le immagini (adattivo) -->
-			<div class="row">
-
+		<!-- contenitore di tutte le immagini (adattivo) -->
+		<div class="row">
+			<form th:action="@{/selezionaFoto}" method="post">
 				<div th:each="foto : ${fotoSelezionate}">
 					<div class="col-xs-4 text-center">
-						<label class="image-checkbox"> 
-						<img class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
-							<input type="checkbox" th:name="listaFotoVisualizzate" th:value="*{foto.id}" />
-							<i class="fa fa-check hidden"></i>
+						<label class="image-checkbox"> <img
+							class="img-fluid img-thumbnail img-responsive"
+							th:src="${foto.link}"> <input type="checkbox"
+							th:name="listaFotoVisualizzate" th:value="*{foto.id}" /> <i
+							class="fa fa-check hidden"></i>
 						</label>
-						<p><a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}"></a></p>
+						<p>
+							<a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}"></a>
+						</p>
 					</div>
 				</div>
-			</div>
-			<a href="/getDettagliOrdine">Conferma Ordinazione</a>
+			</form>
+		</div>
+		<a href="/getDettagliOrdine">Conferma Ordinazione</a>
 	</div>
 
 
