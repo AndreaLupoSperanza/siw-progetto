@@ -3,7 +3,7 @@
 	xmlns="http://www.w3.org/1999/html">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Fotografie</title>
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -52,12 +52,13 @@
 
 				<div th:each="foto : ${fotoVisualizzate}">
 					<div class="col-xs-4 text-center">
-						<label class="image-checkbox"> <img
-							class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
+						<label class="image-checkbox"> 
+						<img class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
 							<!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
 							<input type="checkbox" th:name="listaFotoVisualizzate" th:value="*{foto.id}" />
 							<i class="fa fa-check hidden"></i>
 						</label>
+						<p><a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}"></a></p>
 					</div>
 				</div>
 			</div>
@@ -69,14 +70,15 @@
 							class="img-fluid img-thumbnail img-responsive" th:src="${foto.link}">
 							<!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
 							<input type="checkbox" th:name="listaFotoVisualizzate" th:value="*{foto.id}" />
+							<input type="checkbox" th:name="listaFoto" th:value="*{foto.id}"/>
 							<i class="fa fa-check hidden"></i>
 						</label>
 					</div>
 				</div>
 			</div>
 
-			<button type="submit" value="${pagPrec}" th:text="${pagPrec}">numeroPagPrec</button>
-			<button type="submit" value="${pagSucc}" th:text="${pagSucc}">numeroPagSucc</button>
+			<button type="submit" value="${pagPrec}" th:text="'Pagina '+${pagPrec}">numeroPagPrec</button>
+			<button type="submit" value="${pagSucc}" th:text="'Pagina '+${pagSucc}">numeroPagSucc</button>
 			<button type="submit">"Fine Selezione"</button>
 		</form>
 	</div>
