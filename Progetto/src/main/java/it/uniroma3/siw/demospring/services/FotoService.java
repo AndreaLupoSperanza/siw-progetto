@@ -1,5 +1,6 @@
 package it.uniroma3.siw.demospring.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +45,6 @@ public class FotoService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

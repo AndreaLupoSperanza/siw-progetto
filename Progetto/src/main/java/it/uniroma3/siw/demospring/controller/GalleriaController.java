@@ -28,7 +28,7 @@ public class GalleriaController {
 	
 	@RequestMapping("/")
 	public String paginaInizio(Model model) {
-		model.addAttribute("fotoVisualizzate", this.fotoService.tutte());
+		model.addAttribute("fotoVisualizzate", this.fotoService.findAllFoto());
 		return "index";
 	}
 
