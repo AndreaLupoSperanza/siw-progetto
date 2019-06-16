@@ -58,7 +58,7 @@
 							<input type="checkbox" th:name="fotoSelezione" th:value="*{foto.id}" />
 							<i class="fa fa-check hidden"></i>
 						</label>
-						<p><a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}"></a></p>
+						<p><a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}">nomeImmagine</a></p>
 					</div>
 				</div>
 			</div>

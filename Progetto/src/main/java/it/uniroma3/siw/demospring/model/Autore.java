@@ -16,8 +16,6 @@ public class Autore {
     private Long id;
     private String nome;
     @OneToMany(mappedBy="autore")
-    private List<Foto> fotografie;
-    @OneToMany(mappedBy="autore")
     private List<Album> album;
 
     public Long getId() {
@@ -36,13 +34,6 @@ public class Autore {
         this.nome = nome;
     }
 
-	public List<Foto> getFotografie() {
-		return fotografie;
-	}
-
-	public void setFotografie(List<Foto> fotografie) {
-		this.fotografie = fotografie;
-	}
 
 	public List<Album> getAlbum() {
 		return album;
