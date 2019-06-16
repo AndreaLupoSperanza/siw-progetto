@@ -40,8 +40,30 @@ public class DBPopulation implements ApplicationRunner{
 	
 	private void addAll() throws InterruptedException {
 		Autore aut1 = null, aut2 = null;
-		Foto f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
 		Album alb1 = null,alb2 = null;
+		
+		/*Inizializzo Autore*/
+		aut1 = autoreSet("Enea", null);
+		aut2 = autoreSet("Andrea", null);
+		
+		/*Salvataggio autori*/
+		System.out.println("Autore id:"+aut1.getId()+" Autore rif: " + aut1.toString());
+		aut1 = this.autoreRepository.save(aut1);
+		System.out.println("Autore id:"+aut1.getId()+" Autore rif: " + aut1.toString());
+		aut2 = this.autoreRepository.save(aut2);
+		
+		/*Inizializzo Album*/
+		alb1 = albumSet("Gattini teneri", null, aut1);
+		alb2 = albumSet("Porcellini teneri", null, aut2);
+
+		
+		/*Salvataggio album*/
+		alb1 = this.albumRepository.save(alb1);
+		alb2 = this.albumRepository.save(alb2);
+		
+		
+		Foto f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
+	
 		/*Inizializzo Foto*/
 		f1 = fotoSet("GiaccaSuTela", alb1, "https://i.ytimg.com/vi/NBqO322JRyI/maxresdefault.jpg");
 		f2 = fotoSet("GiaccaSuTela", alb1, "https://besthqwallpapers.com/img/original/49380/bengal-cat-exotic-jungle-cats-4k-small-gray-kitten-pets.jpg");
@@ -68,31 +90,17 @@ public class DBPopulation implements ApplicationRunner{
 		listaFotoAlbum2.add(f9);
 		listaFotoAlbum2.add(f10);
 		
-		/*Inizializzo Album*/
-		alb1 = albumSet("Gattini teneri", listaFotoAlbum1, aut1);
-		alb2 = albumSet("Porcellini teneri", listaFotoAlbum2, aut2);
-		
+
 		/*Lista album di un autore*/
 		List<Album> listaAlbum1 = new ArrayList<Album>();
 		listaAlbum1.add(alb1);
 		List<Album> listaAlbum2 = new ArrayList<Album>();
 		listaAlbum2.add(alb2);
 		
-		/*Inizializzo Autore*/
-		aut1 = autoreSet("Enea", listaAlbum1);
-		aut2 = autoreSet("Andrea", listaAlbum2);
-		
+
 		/*Salvataggio di tutte le entità*/
 		
-		/*Salvataggio autori*/
-		System.out.println("Autore id:"+aut1.getId()+" Autore rif: " + aut1.toString());
-		aut1 = this.autoreRepository.save(aut1);
-		System.out.println("Autore id:"+aut1.getId()+" Autore rif: " + aut1.toString());
-		aut2 = this.autoreRepository.save(aut2);
-
-		/*Salvataggio album*/
-		alb1 = this.albumRepository.save(alb1);
-		alb2 = this.albumRepository.save(alb2);
+		
 
 		/*Salvataggio foto*/
 		f1 = this.fotoRepository.save(f1);
