@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import it.uniroma3.siw.demospring.model.Album;
 import it.uniroma3.siw.demospring.model.Autore;
+import it.uniroma3.siw.demospring.model.Dipendente;
 import it.uniroma3.siw.demospring.model.Foto;
 
 /*
@@ -25,6 +26,8 @@ public class DBPopulation implements ApplicationRunner{
 	private AutoreRepository autoreRepository;
 	@Autowired
 	private FotoRepository fotoRepository;
+	@Autowired
+	private DipendenteRepository dipendenteRepository;
 
 	public void run(ApplicationArguments args) throws Exception {
 		this.deleteAll();
@@ -42,9 +45,13 @@ public class DBPopulation implements ApplicationRunner{
 		Autore aut1 = null, aut2 = null;
 		Album alb1 = null,alb2 = null;
 		Foto f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
+		Dipendente dipendente1;
+		
+		dipendente1 = dipendenteSet("Andrea", "Giaccone", "giacca@gmail.com","1234");
 		
 		/*La generazione delle liste non è importante nel salvataggio iniziale */
 		
+		dipendente1 = this.dipendenteRepository.save(dipendente1);
 		/*Inizializzo Autore*/
 		aut1 = autoreSet("Enea", null);
 		aut2 = autoreSet("Andrea", null);
@@ -91,6 +98,8 @@ public class DBPopulation implements ApplicationRunner{
 
 	}
 	
+	
+
 	private Foto fotoSet(String nomeFoto,Album albFoto, String linkFoto) {
 		Foto f = new Foto();
 		f.setNome(nomeFoto);
@@ -113,6 +122,13 @@ public class DBPopulation implements ApplicationRunner{
 		return a;
 	}
 	
-	
+	private Dipendente dipendenteSet(String nome, String cognome, String email, String password) {
+		Dipendente d = new Dipendente();
+		d.setNome(nome);
+		d.setCognome(cognome);
+		d.setEmail(email);
+		d.setPassword(password);
+		return d;
+	}
 	
 }
