@@ -16,8 +16,6 @@ public class Foto {
 	private String nome;
 	@ManyToOne
 	private Album album;
-	@ManyToOne
-	private Autore autore;
 	public Long getId() {
 		return id;
 	}
@@ -42,11 +40,6 @@ public class Foto {
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
-	public Autore getAutore() {
-		return autore;
-	}
-	public void setAutore(Autore autore) {
-		this.autore = autore;
-	}
+
 
 }
