@@ -55,4 +55,8 @@ public class Dipendente {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
+    
+    public boolean checkPassowrd(String password) {
+		return this.password.equals(password);
+	}
 }

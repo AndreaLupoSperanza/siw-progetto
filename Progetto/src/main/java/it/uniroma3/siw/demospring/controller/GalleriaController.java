@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.demospring.model.Dipendente;
 import it.uniroma3.siw.demospring.model.Foto;
 
 
@@ -113,6 +114,12 @@ public class GalleriaController {
 			model.addAttribute("fotoVisualizzate", this.fotoService.findAllFoto());
 			return "index";
 		}
+	}
+	@RequestMapping("/login")
+	public String login(Model model) {
+		Dipendente dipendente = new Dipendente();
+		model.addAttribute("dipendente", dipendente);
+		return "login";
 	}
 	
 //	@RequestMapping(value = "/getFotoSelezionate")

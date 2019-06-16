@@ -41,6 +41,9 @@ public class DBPopulation implements ApplicationRunner{
 	private void addAll() throws InterruptedException {
 		Autore aut1 = null, aut2 = null;
 		Album alb1 = null,alb2 = null;
+		Foto f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
+		
+		/*La generazione delle liste non è importante nel salvataggio iniziale */
 		
 		/*Inizializzo Autore*/
 		aut1 = autoreSet("Enea", null);
@@ -61,8 +64,6 @@ public class DBPopulation implements ApplicationRunner{
 		alb1 = this.albumRepository.save(alb1);
 		alb2 = this.albumRepository.save(alb2);
 		
-		
-		Foto f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
 	
 		/*Inizializzo Foto*/
 		f1 = fotoSet("GiaccaSuTela", alb1, "https://i.ytimg.com/vi/NBqO322JRyI/maxresdefault.jpg");
@@ -75,32 +76,6 @@ public class DBPopulation implements ApplicationRunner{
 		f8 = fotoSet("GiaccaSuTela", alb2, "https://st3.depositphotos.com/14828974/17844/v/600/depositphotos_178440952-stock-video-close-up-4k-green-eyes.jpg");
 		f9 = fotoSet("GiaccaSuTela", alb2, "https://i.pinimg.com/originals/75/ff/9b/75ff9b08607e1302415712c317591d53.png");
 		f10 = fotoSet("GiaccaSuTela", alb2, "https://besthqwallpapers.com/Uploads/6-5-2018/51316/thumb2-4k-scottish-fold-cat-domestic-cat-gray-cat-close-up.jpg");
-		
-		/*Liste di foto in un album*/
-		List<Foto> listaFotoAlbum1 = new ArrayList<Foto>();
-		listaFotoAlbum1.add(f1);
-		listaFotoAlbum1.add(f2);
-		listaFotoAlbum1.add(f3);
-		listaFotoAlbum1.add(f4);
-		listaFotoAlbum1.add(f5);
-		List<Foto> listaFotoAlbum2 = new ArrayList<Foto>();
-		listaFotoAlbum2.add(f6);
-		listaFotoAlbum2.add(f7);
-		listaFotoAlbum2.add(f8);
-		listaFotoAlbum2.add(f9);
-		listaFotoAlbum2.add(f10);
-		
-
-		/*Lista album di un autore*/
-		List<Album> listaAlbum1 = new ArrayList<Album>();
-		listaAlbum1.add(alb1);
-		List<Album> listaAlbum2 = new ArrayList<Album>();
-		listaAlbum2.add(alb2);
-		
-
-		/*Salvataggio di tutte le entità*/
-		
-		
 
 		/*Salvataggio foto*/
 		f1 = this.fotoRepository.save(f1);
