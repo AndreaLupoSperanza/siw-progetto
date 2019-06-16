@@ -43,16 +43,16 @@ public class DBPopulation implements ApplicationRunner{
 		Foto f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
 		Album alb1 = null,alb2 = null;
 		/*Inizializzo Foto*/
-		f1 = fotoSet("GiaccaSuTela", alb1, aut1, "");
-		f2 = fotoSet("GiaccaSuTela", alb1, aut1, "");
-		f3 = fotoSet("GiaccaSuTela", alb1, aut1, "");
-		f4 = fotoSet("GiaccaSuTela", alb1, aut1, "");
-		f5 = fotoSet("GiaccaSuTela", alb1, aut1, "");
-		f6 = fotoSet("GiaccaSuTela", alb2, aut2, "");
-		f7 = fotoSet("GiaccaSuTela", alb2, aut2, "");
-		f8 = fotoSet("GiaccaSuTela", alb2, aut2, "");
-		f9 = fotoSet("GiaccaSuTela", alb2, aut2, "");
-		f10 = fotoSet("GiaccaSuTela", alb2, aut2, "");
+		f1 = fotoSet("GiaccaSuTela", alb1, aut1, "https://i.ytimg.com/vi/NBqO322JRyI/maxresdefault.jpg");
+		f2 = fotoSet("GiaccaSuTela", alb1, aut1, "https://besthqwallpapers.com/img/original/49380/bengal-cat-exotic-jungle-cats-4k-small-gray-kitten-pets.jpg");
+		f3 = fotoSet("GiaccaSuTela", alb1, aut1, "https://footage.framepool.com/shotimg/qf/298838331-living-being-european-wildcat-kitten-feeding-brood-care.jpg");
+		f4 = fotoSet("GiaccaSuTela", alb1, aut1, "https://besthqwallpapers.com/Uploads/30-10-2017/26294/thumb2-aegean-cat-4k-muzzle-cute-animals-cats.jpg");
+		f5 = fotoSet("GiaccaSuTela", alb1, aut1, "https://forzoo.ru/assets/vodob-vi-695x652.png");
+		f6 = fotoSet("GiaccaSuTela", alb2, aut2, "https://images8.alphacoders.com/532/532996.jpg");
+		f7 = fotoSet("GiaccaSuTela", alb2, aut2, "http://4everstatic.com/imagenes/850xX/animales/gatos/gato-negro,-ojos-verdes-210920.jpg");
+		f8 = fotoSet("GiaccaSuTela", alb2, aut2, "https://st3.depositphotos.com/14828974/17844/v/600/depositphotos_178440952-stock-video-close-up-4k-green-eyes.jpg");
+		f9 = fotoSet("GiaccaSuTela", alb2, aut2, "https://i.pinimg.com/originals/75/ff/9b/75ff9b08607e1302415712c317591d53.png");
+		f10 = fotoSet("GiaccaSuTela", alb2, aut2, "https://besthqwallpapers.com/Uploads/6-5-2018/51316/thumb2-4k-scottish-fold-cat-domestic-cat-gray-cat-close-up.jpg");
 		
 		/*Liste di foto in un album*/
 		List<Foto> listaFotoAlbum1 = new ArrayList<Foto>();
