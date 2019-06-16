@@ -56,7 +56,9 @@ public class Dipendente {
         this.cognome = cognome;
     }
     
-    public boolean checkPassowrd(Dipendente dipendente) {
-		return this.password.equals(dipendente.getPassword());
+
+	public boolean checkPassword(Dipendente dipendente) {
+		String passwordDaVerificare = dipendente.getPassword();
+		return this.password.equals(passwordDaVerificare);
 	}
 }

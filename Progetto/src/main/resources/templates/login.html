@@ -44,9 +44,14 @@
 			<h3>Inserisci le tue credenziali</h3>
 			<form th:action="@{/loginControll}" method="POST"
 				th:object="${dipendente}">
-				<p><input type="text" th:field="*{email}" /> Email</p> 
-				<p><input type="password" th:field="*{password}" /> Password</p>
-				<p><input type="submit" value="Accedi"> </p>
+				<p><input type="text" th:field="*{email}" /> Email
+				<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+				</p> 
+				<p><input type="password" th:field="*{password}" /> Password
+				<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+				</p>
+				<p><input type="submit" value="Accedi"> 
+				<span th:text="${credenzialiErrate}"></span></p>
 			</form>
 		</div>
 	</div>
