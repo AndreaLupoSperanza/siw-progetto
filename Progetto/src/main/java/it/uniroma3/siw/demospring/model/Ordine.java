@@ -18,7 +18,7 @@ public class Ordine {
 	private String nomeAcquirente;
 	private String cognomeAcquirente;
 	private String numeroTelefonico;
-	@OneToMany(mappedBy = "foto")
+	@OneToMany(mappedBy = "ordine")
 	private List<RigaOrdinazione> righeOrdinazione;
 	
 	public Long getId() {

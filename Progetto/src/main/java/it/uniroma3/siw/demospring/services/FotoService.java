@@ -4,19 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import it.uniroma3.siw.demospring.model.Foto;
+import it.uniroma3.siw.demospring.model.Ordine;
+import it.uniroma3.siw.demospring.model.RigaOrdinazione;
 import it.uniroma3.siw.demospring.repository.FotoRepository;
+import it.uniroma3.siw.demospring.repository.OrdineRepository;
+import it.uniroma3.siw.demospring.repository.RigaOrdinazioneRepository;
 
 @Service
 public class FotoService {
 
-
-	private final FotoRepository fotoRepository;
+	@Autowired
+	private FotoRepository fotoRepository;
+	@Autowired
+	private OrdineRepository ordineRepository;
+	@Autowired
+	private RigaOrdinazioneRepository rigaOrdinazioneRepository;
 
 	public FotoService(FotoRepository fotoRepository) {
 		this.fotoRepository = fotoRepository;
@@ -135,6 +145,21 @@ public class FotoService {
 			fotoSelezionatePrima.removeAll(fotoSelezionateAdesso);
 			session.setAttribute("fotoSelezionatePrima", fotoSelezionatePrima);
 		}
+	}
+
+	public void salvaMolteFoto(Ordine ordine, HttpSession session, HttpServletRequest request) {
+
+		List<Foto> fotoDaSalvare = (List<Foto>) session.getAttribute("fotoSelezionatePrima");
+		ordine = this.ordineRepository.save(ordine);
+		List<RigaOrdinazione> righeOrdinazione = new ArrayList<RigaOrdinazione>();
+		for(Foto foto: fotoDaSalvare) {
+			RigaOrdinazione rigaOrdinazione = new RigaOrdinazione();
+			rigaOrdinazione.setFoto(foto);
+			rigaOrdinazione.setOrdine(ordine);
+			righeOrdinazione.add(rigaOrdinazione);
+		}
+		ordine.setRigheOrdinazione(righeOrdinazione);
+		this.rigaOrdinazioneRepository.saveAll(righeOrdinazione);
 	}
 
 

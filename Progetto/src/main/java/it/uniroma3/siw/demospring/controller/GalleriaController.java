@@ -32,7 +32,7 @@ public class GalleriaController {
 	public String paginaInizio(Model model) {
 		model.addAttribute("pagPrec", 0);
 		model.addAttribute("pagSucc", 2);
-		model.addAttribute("fotoVisualizzate", this.fotoService.findAllFoto());
+		model.addAttribute("fotoVisualizzate", this.fotoService.getFotoPaginaSuccessivaDaVisualizzare(1));
 		return "index";
 	}
 

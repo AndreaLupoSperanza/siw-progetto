@@ -1,6 +1,4 @@
 package it.uniroma3.siw.demospring.model;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +37,11 @@ public class Foto {
 	}
 	public void setAlbum(Album album) {
 		this.album = album;
+	}
+
+	public boolean equals(Object o) {
+		Foto f = (Foto) o;
+		return this.id==f.getId();
 	}
 
 

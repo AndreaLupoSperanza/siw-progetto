@@ -44,7 +44,10 @@
 			<h1>Galleria</h1>
 			<p>vediamo se funzia</p>
 		</div>
-		<form th:action="@{/confermaOrdinazione}" method="GET" th:object="${ordine}">
+		<form th:action="@{/confermaOppureAnnullaAcquisto}" method="POST" th:object="${ordine}">
+			<input type="text" th:field="*{nomeAcquirente}"/>
+			<input type="text" th:field="*{cognomeAcquirente}"/>
+			<input type="text" th:field="*{numeroTelefonico}"/>
 			
 			<button name="action" type="submit" th:value="conferma">Conferma</button>
 			<button name="action" type="submit" th:value="annulla">Annulla</button>
