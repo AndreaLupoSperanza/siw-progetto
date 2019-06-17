@@ -44,30 +44,10 @@
 			<h1>Galleria</h1>
 			<p>vediamo se funzia</p>
 		</div>
-		<!-- inzio form di acquisizione immagini -->
-		<form th:action="@{/selezionaFoto}" method="GET">
-			<!-- contenitore di tutte le immagini (adattivo) -->
-			<div class="row">
-
-				<div th:each="foto : ${fotoVisualizzate}">
-					<div class="col-xs-4 text-center">
-						<label class="image-checkbox"> <img
-							class="img-fluid img-thumbnail img-responsive"
-							th:src="${foto.link}"> <!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
-							<input type="checkbox" th:name="fotoSelezione"
-							th:value="${foto.id}" /> <i class="fa fa-check hidden"></i>
-						</label>
-						<p>
-							<a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}">nomeImmagine</a>
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<button name="action" type="submit" th:value="${pagPrec}" th:text="${pagPrec}">prossimaPagina</button>
-			<button name="action" type="submit" th:value="${pagSucc}" th:text="${pagSucc}">prossimaPagina</button>
-			<button name="action" type="submit" th:value="confermaSel">Conferma Scelta</button>
-			<button name="action" type="submit" th:value="carrello">Carrello</button>
+		<form th:action="@{/confermaOrdinazione}" method="GET" th:object="${ordine}">
+			
+			<button name="action" type="submit" th:value="conferma">Conferma</button>
+			<button name="action" type="submit" th:value="annulla">Annulla</button>
 		</form>
 	</div>
 
