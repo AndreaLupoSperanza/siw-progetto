@@ -1,5 +1,7 @@
 package it.uniroma3.siw.demospring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.demospring.model.Foto;
 import it.uniroma3.siw.demospring.model.Ordine;
 import it.uniroma3.siw.demospring.services.FotoService;
 import it.uniroma3.siw.demospring.services.OrdineFormValidator;
@@ -37,8 +40,14 @@ public class OrdinazioneController {
 			model.addAttribute("fotoVisualizzate", session.getAttribute("fotoSelezionatePrima"));
 		}else {
 			if(action.equals("acquista")) {
-				model.addAttribute("ordine", new Ordine());
-				return "ordineForm";
+				List<Foto> fotoSelezionatePrima = (List<Foto>) session.getAttribute("fotoSelezionatePrima");
+				if(fotoSelezionatePrima!=null) {
+					model.addAttribute("ordine", new Ordine());
+					return "ordineForm";
+				}else {
+					model.addAttribute("nessunaFotoSelezionata","Nessuna foto selezionata");
+				}
+				
 			}
 		}
 		return "dettagliOrdinazione";

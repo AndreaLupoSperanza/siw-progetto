@@ -11,12 +11,17 @@ import java.util.List;
 @Entity
 public class Autore {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nome;
-    private String cognome;
-    public String getCognome() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String nome;
+	private String cognome;
+	@OneToMany(mappedBy="autore")
+	private List<Album> album;
+
+	
+	
+	public String getCognome() {
 		return cognome;
 	}
 
@@ -24,24 +29,21 @@ public class Autore {
 		this.cognome = cognome;
 	}
 
-	@OneToMany(mappedBy="autore")
-    private List<Album> album;
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 
 	public List<Album> getAlbum() {
@@ -51,5 +53,5 @@ public class Autore {
 	public void setAlbum(List<Album> album) {
 		this.album = album;
 	}
-    
+
 }

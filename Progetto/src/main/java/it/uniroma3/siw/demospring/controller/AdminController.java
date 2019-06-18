@@ -4,6 +4,7 @@ package it.uniroma3.siw.demospring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.demospring.model.Album;
 import it.uniroma3.siw.demospring.model.Autore;
 import it.uniroma3.siw.demospring.model.Foto;
 import it.uniroma3.siw.demospring.model.Ordine;
 import it.uniroma3.siw.demospring.model.RigaOrdinazione;
-import it.uniroma3.siw.demospring.model.Studente;
-import it.uniroma3.siw.demospring.repository.AutoreRepository;
+
 import it.uniroma3.siw.demospring.services.AlbumService;
+import it.uniroma3.siw.demospring.services.AlbumValidator;
 import it.uniroma3.siw.demospring.services.AutoreService;
 import it.uniroma3.siw.demospring.services.AutoreValidator;
 import it.uniroma3.siw.demospring.services.FotoService;
@@ -35,9 +35,11 @@ public class AdminController {
 	@Autowired
 	private OrdineService ordineService;
 	@Autowired
-	private AutoreValidator albumValidator;
+	private AlbumValidator albumValidator;
 	@Autowired
 	private AutoreService autoreService;
+	@Autowired
+	private AutoreValidator autoreValidator;
 	@Autowired
 	private AlbumService albumService;
 	@Autowired
@@ -53,13 +55,13 @@ public class AdminController {
 			return "singoloOrdine";
 		}
 		model.addAttribute("ordini", this.ordineService.tuttiOrdini());
-		return "elencoOrdini";
+		return "amministratore";
 	}
 
 	@RequestMapping(value = "/ordini", method = RequestMethod.GET)
 	public String getTuttiOrdini(Model model) {
 		model.addAttribute("ordini", this.ordineService.tuttiOrdini());
-		return "elencoOrdini";
+		return "amministratore";
 	}
 
 	@RequestMapping(value = "/vaiAddAutore")
@@ -70,21 +72,55 @@ public class AdminController {
 
 	@RequestMapping(value = "/vaiAddAlbum")
 	public String vaiAddAlbum(Model model) {
+		model.addAttribute("autori", this.autoreService.tuttiGliAutore());
+		return "selAutorePerAddAlbum";
+	}
+	
+	@RequestMapping(value = "/selAutorePerAddAlbum/{id}", method = RequestMethod.GET)
+	public String selAutorePerAddAlbum(
+			@PathVariable("id") Long id,
+			HttpSession session,
+			Model model) {
+		Autore autoreSel = this.autoreService.getSingoloAutore(id);
+		session.setAttribute("idAutoreAlbum", autoreSel);
 		model.addAttribute("album", new Album());
-		return "addAlbum";
+		return "addAlbum.html";
+	}
+	
+
+	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
+	public String addAlbum(@Valid @ModelAttribute("album") Album album,
+			Model model, 
+			BindingResult bindingResult,
+			HttpSession session) {
+
+		Autore autoreSel = (Autore) session.getAttribute("idAutoreAlbum");
+		album.setAutore(autoreSel);
+		this.albumValidator.validate(album, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			if(this.albumService.esiste(album)) {
+				model.addAttribute("esiste", "Un album con questo nome esiste già");
+			}else {
+				this.albumService.inserisci(album);
+				model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
+				return "tuttiGliAlbum.html";
+			}
+		}
+		model.addAttribute("album", album);
+		return "addAlbum.html";
 	}
 
 	@RequestMapping(value = "/vaiAddFoto")
 	public String vaiAddFoto(Model model) {
 		model.addAttribute("foto", new Foto());
-		return "autoreForm";
+		return "addFoto";
 	}
 
 	@RequestMapping(value = "/addAutore", method = RequestMethod.POST)
 	public String addAutore(@Valid @ModelAttribute("autore") Autore autore,
 			Model model, BindingResult bindingResult) {
 
-		this.albumValidator.validate(autore, bindingResult);
+		this.autoreValidator.validate(autore, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			if(this.autoreService.esiste(autore)) {
 				model.addAttribute("esiste", "Questo autore esiste già");
@@ -95,39 +131,23 @@ public class AdminController {
 			}
 		}
 		model.addAttribute("autore", autore);
-		return "autoreForm";
+		return "addAutore";
 	}
 	
-	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-	public String addAlbum(@Valid @ModelAttribute("album") Album album,
-			Model model, BindingResult bindingResult) {
-
-		this.albumValidator.validate(album, bindingResult);
-		if(!bindingResult.hasErrors()) {
-			if(this.albumService.esiste(album)) {
-				model.addAttribute("esiste", "Un album con questo nome esiste già");
-			}else {
-				
-				this.albumService.inserisci(album);
-				model.addAttribute("album", this.albumService.tuttiGliAlbum());
-				return "gliAlbum";
-			}
-		}
-		model.addAttribute("album", album);
-		return "albumForm";
-	}
+	
+	
 	
 	@RequestMapping(value = "/addFotoLink", method = RequestMethod.POST)
 	public String addFoto(@Valid @ModelAttribute("foto") Foto foto,
 			Model model, BindingResult bindingResult) {
 
-		this.albumValidator.validate(foto, bindingResult);
+		//this.fotoValidator.validate(foto, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			if(this.fotoService.esiste(foto)) {
 				model.addAttribute("esiste", "Una foto con questo link esiste già");
 			}else {
 				
-				this.albumService.inserisci(album);
+				this.fotoService.inserisci(foto);
 				model.addAttribute("foto", this.fotoService.tutteFoto());
 				return "tutteFoto";
 			}

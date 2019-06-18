@@ -167,5 +167,13 @@ public class FotoService {
 		return this.fotoRepository.findByLink(foto.getLink())!=null;
 	}
 
+	public List<Foto> tutteFoto() {
+		return (List<Foto>) this.fotoRepository.findAll();
+	}
+	
+	public void inserisci(Foto foto) {
+		this.fotoRepository.save(foto);
+	}
+
 
 }

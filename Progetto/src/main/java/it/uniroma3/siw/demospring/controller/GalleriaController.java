@@ -46,8 +46,7 @@ public class GalleriaController {
 			@RequestParam (value = "action") String action,
 			Model model,
 			HttpSession session,
-			HttpServletRequest request
-			) {
+			HttpServletRequest request) {
 		String prossimaPagina = "index";
 
 	

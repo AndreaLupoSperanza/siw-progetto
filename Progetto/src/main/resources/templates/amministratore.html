@@ -41,15 +41,18 @@
 			<h1>Amministratore</h1>
 		</div>
 		<div class="jumbotron">
-			<a href="/vaiAddAutore">Aggiungi un autore</a>
-			<a href="/vaiAddAlbum">Aggiungi un album</a>
-			<a href="/vaiAddFoto">Aggiungi una foto</a>
+			<a href="/vaiAddAutore">Aggiungi un autore</a> <a href="/vaiAddAlbum">Aggiungi
+				un album</a> <a href="/vaiAddFoto">Aggiungi una foto</a>
 		</div>
-		<div th:each="ordine : ${ordini}">
-			<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
-				th:text="${ordine.cognomeAcquirente}">Rossi</a>
-			</span> <span th:text="${ordine.nomeAcquirente}"></span>
+		<div class="jumbotron">
+			<h3>Ordini attuali:</h3>
+			<div th:each="ordine : ${ordini}">
+				<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
+					th:text="${ordine.cognomeAcquirente}">Rossi</a>
+				</span> <span th:text="${ordine.nomeAcquirente}"></span>
+			</div>
 		</div>
+
 
 
 	</div>

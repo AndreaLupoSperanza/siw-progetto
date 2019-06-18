@@ -23,7 +23,11 @@ public class AutoreService {
 	}
 
 	public boolean esiste(Autore autore) {
-		return this.autoreRepository.existsById(autore.getId());
+		return ((this.autoreRepository.findByNome(autore.getNome()).size()>0)&&(this.autoreRepository.findByCognome(autore.getCognome()).size()>0));
+	}
+
+	public Autore getSingoloAutore(Long id) {
+		return this.autoreRepository.findById(id).get();
 	}
 
 }
