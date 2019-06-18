@@ -47,8 +47,7 @@
 		<!-- inzio form di acquisizione immagini -->
 		<form th:action="@{/selezionaFoto}" method="GET">
 			<!-- contenitore di tutte le immagini (adattivo) -->
-			<div class="row">
-
+				<div class="row">
 				<div th:each="foto : ${fotoVisualizzate}">
 					<div class="col-xs-4 text-center">
 						<label class="image-checkbox"> <img
@@ -68,6 +67,7 @@
 			<button name="action" type="submit" th:value="${pagSucc}" th:text="${pagSucc}">prossimaPagina</button>
 			<button name="action" type="submit" th:value="confermaSel">Conferma Scelta</button>
 			<button name="action" type="submit" th:value="carrello">Carrello</button>
+			<button name="action" type="submit" th:value="home">Home</button>
 		</form>
 	</div>
 

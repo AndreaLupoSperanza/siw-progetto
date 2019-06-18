@@ -61,6 +61,14 @@ public class GalleriaController {
 						model.addAttribute("fotoVisualizzate", fotoSelezionate);
 						return "dettagliOrdinazione";
 					}else {
+						//provo ad aggiungere il tasto home
+						if(action.equals("home")) {
+							model.addAttribute("pagPrec", 0);
+							model.addAttribute("pagSucc", 2);
+							model.addAttribute("fotoVisualizzate", this.fotoService.getFotoPaginaSuccessivaDaVisualizzare(1));
+							return"index";
+						}
+						//fine
 						int pagina=1;
 						System.out.println(request.getParameter(action));
 						//Action qui è il valore della pagina in cui voglio andare
@@ -103,6 +111,7 @@ public class GalleriaController {
 			return "index";
 		}
 	}
+	
 	@RequestMapping("/login")
 	public String login(Model model) {
 		Dipendente dipendente = new Dipendente();

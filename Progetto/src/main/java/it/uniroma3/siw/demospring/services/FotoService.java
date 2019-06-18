@@ -52,16 +52,8 @@ public class FotoService {
 			returnAllFotoSelezionate.add(foto);
 		}
 
-<<<<<<< HEAD
-        return returnAllFoto;
-        //perché non è solo
-        //return (List<Foto>)fotoRepository.findAll();
-        //?
-    }
-=======
 		return returnAllFotoSelezionate;
 	}
->>>>>>> master
 
 	public List<Foto> getFotoPaginaSuccessivaDaVisualizzare(int pagina) {
 		int primaFotoPagina = pagina*10;
