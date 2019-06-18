@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.demospring.model.Album;
 import it.uniroma3.siw.demospring.model.Autore;
@@ -22,19 +23,25 @@ import it.uniroma3.siw.demospring.model.Ordine;
 import it.uniroma3.siw.demospring.model.RigaOrdinazione;
 import it.uniroma3.siw.demospring.model.Studente;
 import it.uniroma3.siw.demospring.repository.AutoreRepository;
+import it.uniroma3.siw.demospring.services.AlbumService;
 import it.uniroma3.siw.demospring.services.AutoreService;
 import it.uniroma3.siw.demospring.services.AutoreValidator;
+import it.uniroma3.siw.demospring.services.FotoService;
 import it.uniroma3.siw.demospring.services.OrdineService;
 
 @Controller
 public class AdminController {
-	
+
 	@Autowired
 	private OrdineService ordineService;
 	@Autowired
-	private AutoreValidator autoreValidator;
+	private AutoreValidator albumValidator;
 	@Autowired
 	private AutoreService autoreService;
+	@Autowired
+	private AlbumService albumService;
+	@Autowired
+	private FotoService fotoService;
 
 	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET)
 	public String getOrdine(@PathVariable ("id") Long id, Model model) {
@@ -48,45 +55,89 @@ public class AdminController {
 		model.addAttribute("ordini", this.ordineService.tuttiOrdini());
 		return "elencoOrdini";
 	}
-	
+
 	@RequestMapping(value = "/ordini", method = RequestMethod.GET)
 	public String getTuttiOrdini(Model model) {
 		model.addAttribute("ordini", this.ordineService.tuttiOrdini());
 		return "elencoOrdini";
 	}
-	
+
 	@RequestMapping(value = "/vaiAddAutore")
 	public String vaiAddAutore(Model model) {
 		model.addAttribute("autore", new Autore());
 		return "addAutore";
 	}
-	
+
 	@RequestMapping(value = "/vaiAddAlbum")
 	public String vaiAddAlbum(Model model) {
 		model.addAttribute("album", new Album());
 		return "addAlbum";
 	}
-	
+
 	@RequestMapping(value = "/vaiAddFoto")
 	public String vaiAddFoto(Model model) {
 		model.addAttribute("foto", new Foto());
-		return "addFoto";
+		return "autoreForm";
 	}
-	
+
 	@RequestMapping(value = "/addAutore", method = RequestMethod.POST)
 	public String addAutore(@Valid @ModelAttribute("autore") Autore autore,
 			Model model, BindingResult bindingResult) {
-		
-		this.autoreValidator.validate(autore, bindingResult);
+
+		this.albumValidator.validate(autore, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			this.autoreService.inserisci(autore);
-			model.addAttribute("autore", this.autoreService.tutti());
-			return "autori";
-		}else {
-			return "autoreForm.html";
+			if(this.autoreService.esiste(autore)) {
+				model.addAttribute("esiste", "Questo autore esiste già");
+			}else {
+				this.autoreService.inserisci(autore);
+				model.addAttribute("autore", this.autoreService.tuttiGliAutore());
+				return "autori";
+			}
 		}
+		model.addAttribute("autore", autore);
+		return "autoreForm";
 	}
 	
+	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
+	public String addAlbum(@Valid @ModelAttribute("album") Album album,
+			Model model, BindingResult bindingResult) {
+
+		this.albumValidator.validate(album, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			if(this.albumService.esiste(album)) {
+				model.addAttribute("esiste", "Un album con questo nome esiste già");
+			}else {
+				
+				this.albumService.inserisci(album);
+				model.addAttribute("album", this.albumService.tuttiGliAlbum());
+				return "gliAlbum";
+			}
+		}
+		model.addAttribute("album", album);
+		return "albumForm";
+	}
 	
-	
+	@RequestMapping(value = "/addFotoLink", method = RequestMethod.POST)
+	public String addFoto(@Valid @ModelAttribute("foto") Foto foto,
+			Model model, BindingResult bindingResult) {
+
+		this.albumValidator.validate(foto, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			if(this.fotoService.esiste(foto)) {
+				model.addAttribute("esiste", "Una foto con questo link esiste già");
+			}else {
+				
+				this.albumService.inserisci(album);
+				model.addAttribute("foto", this.fotoService.tutteFoto());
+				return "tutteFoto";
+			}
+		}
+		model.addAttribute("foto", foto);
+		return "fotoForm";
+	}
+
+
+
+
+
 }

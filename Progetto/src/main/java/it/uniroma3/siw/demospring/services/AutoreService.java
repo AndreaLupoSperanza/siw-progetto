@@ -22,4 +22,8 @@ public class AutoreService {
 		return (List<Autore>) this.autoreRepository.findAll();
 	}
 
+	public boolean esiste(Autore autore) {
+		return this.autoreRepository.existsById(autore.getId());
+	}
+
 }

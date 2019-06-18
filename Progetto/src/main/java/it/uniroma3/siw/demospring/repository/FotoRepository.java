@@ -11,4 +11,6 @@ import it.uniroma3.siw.demospring.model.Autore;
 public interface FotoRepository extends CrudRepository<Foto, Long>{
 
 	public List<Foto> findByAlbum(Album album);
+
+	public Foto findByLink(String link);
 }

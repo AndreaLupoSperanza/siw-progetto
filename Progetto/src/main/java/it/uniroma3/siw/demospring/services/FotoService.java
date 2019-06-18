@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -160,6 +161,10 @@ public class FotoService {
 		}
 		ordine.setRigheOrdinazione(righeOrdinazione);
 		this.rigaOrdinazioneRepository.saveAll(righeOrdinazione);
+	}
+
+	public boolean esiste(@Valid Foto foto) {
+		return this.fotoRepository.findByLink(foto.getLink())!=null;
 	}
 
 
