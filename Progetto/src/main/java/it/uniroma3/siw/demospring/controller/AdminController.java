@@ -27,6 +27,7 @@ import it.uniroma3.siw.demospring.services.AlbumValidator;
 import it.uniroma3.siw.demospring.services.AutoreService;
 import it.uniroma3.siw.demospring.services.AutoreValidator;
 import it.uniroma3.siw.demospring.services.FotoService;
+import it.uniroma3.siw.demospring.services.FotoValidator;
 import it.uniroma3.siw.demospring.services.OrdineService;
 
 @Controller
@@ -44,6 +45,8 @@ public class AdminController {
 	private AlbumService albumService;
 	@Autowired
 	private FotoService fotoService;
+	@Autowired
+	private FotoValidator fotoValidator;
 
 	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET)
 	public String getOrdine(@PathVariable ("id") Long id, Model model) {
@@ -86,34 +89,46 @@ public class AdminController {
 		model.addAttribute("album", new Album());
 		return "addAlbum.html";
 	}
+
+	@RequestMapping(value = "/vaiAddFoto")
+	public String vaiAddFoto(Model model) {
+		model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
+		return "selAlbumPerAddFoto";
+	}
+	
+	
+	@RequestMapping(value = "/selAlbumPerAddFoto/{id}", method = RequestMethod.GET)
+	public String selAlbumPerAddFoto(
+			@PathVariable("id") Long id,
+			HttpSession session,
+			Model model) {
+		Album albumSel = this.albumService.getSingoloAlbum(id);
+		session.setAttribute("idAlbumFoto", albumSel);
+		model.addAttribute("foto", new Foto());
+		return "addFoto.html";
+	}
 	
 
-	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-	public String addAlbum(@Valid @ModelAttribute("album") Album album,
+	@RequestMapping(value = "/addFoto", method = RequestMethod.POST)
+	public String addAlbum(@Valid @ModelAttribute("foto") Foto foto,
 			Model model, 
 			BindingResult bindingResult,
 			HttpSession session) {
 
-		Autore autoreSel = (Autore) session.getAttribute("idAutoreAlbum");
-		album.setAutore(autoreSel);
-		this.albumValidator.validate(album, bindingResult);
+		Album albumSel = (Album) session.getAttribute("idAlbumFoto");
+		foto.setAlbum(albumSel);
+		this.fotoValidator.validate(foto, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			if(this.albumService.esiste(album)) {
-				model.addAttribute("esiste", "Un album con questo nome esiste già");
+			if(this.fotoService.esiste(foto)) {
+				model.addAttribute("esiste", "Una foto con questo nome esiste già");
 			}else {
-				this.albumService.inserisci(album);
-				model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
-				return "tuttiGliAlbum.html";
+				this.fotoService.inserisci(foto);
+				model.addAttribute("leFoto", this.fotoService.tutteFoto());
+				return "tutteLeFoto.html";
 			}
 		}
-		model.addAttribute("album", album);
-		return "addAlbum.html";
-	}
-
-	@RequestMapping(value = "/vaiAddFoto")
-	public String vaiAddFoto(Model model) {
-		model.addAttribute("foto", new Foto());
-		return "addFoto";
+		model.addAttribute("foto", foto);
+		return "addFoto.html";
 	}
 
 	@RequestMapping(value = "/addAutore", method = RequestMethod.POST)

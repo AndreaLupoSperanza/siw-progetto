@@ -26,6 +26,10 @@ public class AlbumService {
 	public List<Album> tuttiGliAlbum() {
 		return (List<Album>) this.albumRepository.findAll();
 	}
+
+	public Album getSingoloAlbum(Long id) {
+		return this.albumRepository.findById(id).get();
+	}
 	
 
 }

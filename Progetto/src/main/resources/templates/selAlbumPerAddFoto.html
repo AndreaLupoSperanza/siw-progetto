@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<body>
+	<div>
+		<h4>Studenti</h4>
+		<ul>
+
+		</ul>
+	</div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="ISO-8859-1">
+<title>Fotografie</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-nav-demo"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand">io1</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-nav-demo">
+				<ul class="nav navbar-nav">
+					<li><a href="#">About</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/">Logout</a></li>
+					<li><a href="/">Pagina Principale</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Amministratore</h1>
+		</div>
+		<div class="jumbotron">
+				<ul>
+					<li th:each="album : ${gliAlbum}">
+						<!-- Viene stampato un link --> <a
+						th:href="@{'/selAlbumPerAddFoto' + '/' + ${album.id}}"
+						th:text="${album.id}"> autoreId</a> <span th:text="${album.nome}">nomeAutore</span>
+					</li>
+				</ul>
+		</div>
+
+
+	</div>
+
+
+
+
+
+</body>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.js"></script>
+<script>
+	// image gallery
+	// init the state from the input
+	$(".image-checkbox").each(function() {
+		if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+			$(this).addClass('image-checkbox-checked');
+		} else {
+			$(this).removeClass('image-checkbox-checked');
+		}
+	});
+
+	// sync the state to the input
+	$(".image-checkbox").on("click", function(e) {
+		$(this).toggleClass('image-checkbox-checked');
+		var $checkbox = $(this).find('input[type="checkbox"]');
+		$checkbox.prop("checked", !$checkbox.prop("checked"))
+
+		e.preventDefault();
+	});
+</script>
+</html>
+
