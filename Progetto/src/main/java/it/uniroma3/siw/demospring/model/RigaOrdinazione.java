@@ -14,7 +14,7 @@ import it.uniroma3.siw.demospring.repository.FotoRepository;
 public class RigaOrdinazione {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@OneToOne 
 	private Foto foto;
