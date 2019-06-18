@@ -15,7 +15,16 @@ public class Autore {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
-    @OneToMany(mappedBy="autore")
+    private String cognome;
+    public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	@OneToMany(mappedBy="autore")
     private List<Album> album;
 
     public Long getId() {

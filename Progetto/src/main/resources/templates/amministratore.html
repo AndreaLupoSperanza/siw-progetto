@@ -9,12 +9,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-
-
-
 </head>
 <body>
-
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -33,7 +29,8 @@
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/login">Login</a></li>
+					<li><a href="/">Logout</a></li>
+					<li><a href="/">Pagina Principale</a></li>
 				</ul>
 			</div>
 		</div>
@@ -42,7 +39,11 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Amministratore</h1>
-			<p>Questo è l'elenco delle degli ordini attuali</p>
+		</div>
+		<div class="jumbotron">
+			<a href="/vaiAddAutore">Aggiungi un autore</a>
+			<a href="/vaiAddAlbum">Aggiungi un album</a>
+			<a href="/vaiAddFoto">Aggiungi una foto</a>
 		</div>
 		<div th:each="ordine : ${ordini}">
 			<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
