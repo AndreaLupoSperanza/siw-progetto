@@ -1,6 +1,4 @@
 package it.uniroma3.siw.demospring.model;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,14 +8,12 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Foto {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String link;	
 	private String nome;
 	@ManyToOne
 	private Album album;
-	@ManyToOne
-	private Autore autore;
 	public Long getId() {
 		return id;
 	}
@@ -42,11 +38,11 @@ public class Foto {
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
-	public Autore getAutore() {
-		return autore;
+
+	public boolean equals(Object o) {
+		Foto f = (Foto) o;
+		return this.id==f.getId();
 	}
-	public void setAutore(Autore autore) {
-		this.autore = autore;
-	}
+
 
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Dipendente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String password;
@@ -55,4 +55,10 @@ public class Dipendente {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
+    
+
+	public boolean checkPassword(Dipendente dipendente) {
+		String passwordDaVerificare = dipendente.getPassword();
+		return this.password.equals(passwordDaVerificare);
+	}
 }

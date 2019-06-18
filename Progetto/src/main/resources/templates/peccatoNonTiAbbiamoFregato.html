@@ -42,46 +42,12 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Galleria</h1>
-			<p>vediamo se funzia</p>
+			<h1>Ordine ANNULLATO!</h1>
+			<p>Ci dispiace che non ti piacciono i gatti...</p>
+			<p><img src="https://forzoo.ru/assets/vodob-vi-695x652.png"></p>
 		</div>
-		<!-- inzio form di acquisizione immagini -->
-		<form th:action="@{/cancellaOppureAcquistaSelezionate}" method="GET">
-			<!-- contenitore di tutte le immagini (adattivo) -->
-			<div class="row">
-
-				<div th:each="foto : ${fotoVisualizzate}">
-					<div class="col-xs-4 text-center">
-						<label class="image-checkbox"> <img
-							class="img-fluid img-thumbnail img-responsive"
-							th:src="${foto.link}"> <!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
-							<input type="checkbox" th:name="fotoSelezione"
-							th:value="${foto.id}" /> <i class="fa fa-check hidden"></i>
-						</label>
-						<p>
-							<a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}">nomeImmagine</a>
-						</p>
-					</div>
-				</div>
-<<<<<<< HEAD
-			</form>
-		</div>
-		<table>
-		<tr><td><a href="/getDettagliOrdine">Conferma Ordinazione</a></td></tr>
-		<tr><td><a href="/">Torna alla home</a></td></tr>
-		</table>
-=======
-			</div>
-			<button name="action" type="submit" th:value="eliminaSel">Elimina Selezionate</button>
-			<button name="action" type="submit" th:value="acquista">Acquista</button><span th:text="${nessunaFotoSelezionata}"></span>
-		</form>
->>>>>>> master
+		<a href="/">Torna alla pagina principale</a>
 	</div>
-
-
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script

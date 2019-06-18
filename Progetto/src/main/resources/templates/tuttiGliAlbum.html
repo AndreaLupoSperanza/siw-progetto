@@ -9,12 +9,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-
-
-
 </head>
 <body>
-
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -33,7 +29,7 @@
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/login">Login</a></li>
+					<li><a href="/">Logout</a></li>
 					<li><a href="/">Pagina Principale</a></li>
 				</ul>
 			</div>
@@ -42,40 +38,18 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Galleria</h1>
-			<p>vediamo se funzia</p>
+			<h1>Album</h1>
 		</div>
-		<!-- inzio form di acquisizione immagini -->
-		<form th:action="@{/cancellaOppureAcquistaSelezionate}" method="GET">
-			<!-- contenitore di tutte le immagini (adattivo) -->
-			<div class="row">
+		<div class="jumbotron">
+			Ecco tutti gli album
+		</div>
+		<div th:each="album : ${gliAlbum}">
+			<span> <a th:href="@{'/album' + '/' + ${album.id}}"
+				th:text="${album.id}">Rossi</a>
+			</span> <span th:text="${album.nome}"></span>
+		</div>
 
-				<div th:each="foto : ${fotoVisualizzate}">
-					<div class="col-xs-4 text-center">
-						<label class="image-checkbox"> <img
-							class="img-fluid img-thumbnail img-responsive"
-							th:src="${foto.link}"> <!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
-							<input type="checkbox" th:name="fotoSelezione"
-							th:value="${foto.id}" /> <i class="fa fa-check hidden"></i>
-						</label>
-						<p>
-							<a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}">nomeImmagine</a>
-						</p>
-					</div>
-				</div>
-<<<<<<< HEAD
-			</form>
-		</div>
-		<table>
-		<tr><td><a href="/getDettagliOrdine">Conferma Ordinazione</a></td></tr>
-		<tr><td><a href="/">Torna alla home</a></td></tr>
-		</table>
-=======
-			</div>
-			<button name="action" type="submit" th:value="eliminaSel">Elimina Selezionate</button>
-			<button name="action" type="submit" th:value="acquista">Acquista</button><span th:text="${nessunaFotoSelezionata}"></span>
-		</form>
->>>>>>> master
+
 	</div>
 
 
