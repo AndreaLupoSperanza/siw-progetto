@@ -41,22 +41,12 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Amministratore</h1>
-			<p>Questo è l'elenco delle degli ordini attuali</p>
+			<h1>Ordine ANNULLATO!</h1>
+			<p>Ci dispiace che non ti piacciono i gatti...</p>
+			<p><img src="https://forzoo.ru/assets/vodob-vi-695x652.png"></p>
 		</div>
-		<div th:each="ordine : ${ordini}">
-			<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
-				th:text="${ordine.cognomeAcquirente}">Rossi</a>
-			</span> <span th:text="${ordine.nomeAcquirente}"></span>
-		</div>
-
-
+		<a href="/">Torna alla pagina principale</a>
 	</div>
-
-
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script

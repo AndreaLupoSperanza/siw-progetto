@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import it.uniroma3.siw.demospring.model.Dipendente;
 import it.uniroma3.siw.demospring.repository.DipendenteRepository;
 import it.uniroma3.siw.demospring.services.DipendenteValidator;
+import it.uniroma3.siw.demospring.services.OrdineService;
 
 @Controller
 public class LoginController {
@@ -23,6 +24,8 @@ public class LoginController {
 	private DipendenteRepository dipendenteRepository;
 	@Autowired
 	private DipendenteValidator dipendenteValidator;
+	@Autowired
+	private OrdineService ordineService;
 
 	@RequestMapping(value = "/loginControll", method = RequestMethod.POST)
 	public String controllaCredenziali(
@@ -33,10 +36,12 @@ public class LoginController {
 			
 			Dipendente dipendenteInMemoria = this.dipendenteRepository.findByEmail(dipendente.getEmail());
 			if((dipendenteInMemoria!=null)&&(dipendente.checkPassword(dipendenteInMemoria))) {
+				model.addAttribute("ordini", this.ordineService.tuttiOrdini());
 				return "amministratore";
 			}
 		}
 		model.addAttribute("dipendente", dipendente);
+		//Hai inserito delle credenziali, ma sono sbagliate
 		model.addAttribute("credenzialiErrate","Credenziali Errate");
 		return "login";
 				

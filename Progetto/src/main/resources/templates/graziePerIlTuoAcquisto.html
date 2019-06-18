@@ -41,22 +41,11 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Amministratore</h1>
-			<p>Questo è l'elenco delle degli ordini attuali</p>
+			<h1>Ordine Effettuato!</h1>
+			<p>Sarai contattato al più presto</p>
 		</div>
-		<div th:each="ordine : ${ordini}">
-			<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
-				th:text="${ordine.cognomeAcquirente}">Rossi</a>
-			</span> <span th:text="${ordine.nomeAcquirente}"></span>
-		</div>
-
-
+		<a href="/">Torna alla pagina principale</a>
 	</div>
-
-
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script

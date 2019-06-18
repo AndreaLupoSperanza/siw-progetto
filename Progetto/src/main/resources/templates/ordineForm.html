@@ -44,11 +44,23 @@
 			<h1>Galleria</h1>
 			<p>vediamo se funzia</p>
 		</div>
-		<form th:action="@{/confermaOppureAnnullaAcquisto}" method="POST" th:object="${ordine}">
-			<input type="text" th:field="*{nomeAcquirente}"/>
-			<input type="text" th:field="*{cognomeAcquirente}"/>
-			<input type="text" th:field="*{numeroTelefonico}"/>
-			
+		<form th:action="@{/confermaOppureAnnullaAcquisto}" method="POST"
+			th:object="${ordine}">
+			<div>
+				<input type="text" th:field="*{nomeAcquirente}" /> Nome <span
+					th:if="${#fields.hasErrors('nomeAcquirente')}"
+					th:errors="*{nomeAcquirente}"></span>
+			</div>
+			<div>
+				<input type="text" th:field="*{cognomeAcquirente}" /> Cognome <span
+					th:if="${#fields.hasErrors('cognomeAcquirente')}"
+					th:errors="*{cognomeAcquirente}"></span>
+			</div>
+			<div>
+				<input type="text" th:field="*{numeroTelefonico}" /> Telefono <span
+					th:if="${#fields.hasErrors('numeroTelefonico')}"
+					th:errors="*{numeroTelefonico}"></span>
+			</div>
 			<button name="action" type="submit" th:value="conferma">Conferma</button>
 			<button name="action" type="submit" th:value="annulla">Annulla</button>
 		</form>

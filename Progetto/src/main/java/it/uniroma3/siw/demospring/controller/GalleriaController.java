@@ -111,42 +111,5 @@ public class GalleriaController {
 		return "login";
 	}
 
-	//	@RequestMapping(value = "/getFotoSelezionate")
-	//	public String getFotoSelezionate(@RequestParam(value = "addFotoSelezionate") String[] listFotoIds,
-	//									 Model model) {
-	//		List<Foto> listFoto = new ArrayList<>();
-	//
-	//
-	//		List<Long> fotoIds = new ArrayList<>();
-	//
-	//		if (listFotoIds == null || listFotoIds.length == 0) {
-
-	//	@RequestMapping(value = "/addFotoSelezionate", method = RequestMethod.POST)
-	//	public String prendiTutteLeFotoSelezionate(@RequestParam(value = "listaFoto") String[]  idFotoLista, 
-	//			Model model) {
-	//		List<Foto> fotoLista = new ArrayList<Foto>();
-	//		System.out.println("lunghezza idFotoLista: "+idFotoLista.length);
-	//		try {
-	//			for(String idFotoSingola : idFotoLista) {
-	//				Long id = Long.parseLong(idFotoSingola.trim());
-	//				fotoLista.add(this.fotoService.fotoPerId(id));
-	//				System.out.println("id Foto sel: "+idFotoSingola);
-	//			}
-	//		}catch (NullPointerException e) {
-	//			System.out.println("Foto richieste VUOTE");
-	//			model.addAttribute("fotoVisualizzate", listFoto);
-	//		} else {
-	//			for(String idStringFoto : listFotoIds) {
-	//				Long idFoto = Long.parseLong(idStringFoto.trim());
-	//				System.out.println("id Foto sel: " + idFoto);
-	//				fotoIds.add(idFoto);
-	//			}
-	//			listFoto = fotoService.findAllFoto(fotoIds);
-	//			model.addAttribute("fotoVisualizzate", listFoto);
-	//		}
-	//
-	//		return "index";
-	//	}
-
 
 }

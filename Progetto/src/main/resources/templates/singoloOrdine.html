@@ -41,14 +41,23 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Amministratore</h1>
-			<p>Questo è l'elenco delle degli ordini attuali</p>
+			<h1>Dettagli Ordine</h1>
+			<h3 th:text="${ordine.nomeAcquirente}"></h3>
+			<h3 th:text="${ordine.cognomeAcquirente}"></h3>
+			<h3 th:text="${ordine.numeroTelefonico}"></h3>
+			<div class="row">
+				<div th:each="riga : ${righeOrdinazione}">
+					<div class="col-xs-4 text-left">
+						<img class="img-fluid img-thumbnail img-responsive"
+							th:src="${riga.foto.link}">
+						ID:<p th:text="${riga.foto.id}">NomeFoto</p>
+						Nome:<p th:text="${riga.foto.nome}">NomeFoto</p>
+						Link: <p th:text="${riga.foto.link}">NomeFoto</p>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div th:each="ordine : ${ordini}">
-			<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
-				th:text="${ordine.cognomeAcquirente}">Rossi</a>
-			</span> <span th:text="${ordine.nomeAcquirente}"></span>
-		</div>
+
 
 
 	</div>
