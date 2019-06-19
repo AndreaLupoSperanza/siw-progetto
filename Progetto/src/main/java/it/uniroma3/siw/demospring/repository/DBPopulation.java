@@ -53,8 +53,8 @@ public class DBPopulation implements ApplicationRunner{
 		
 		dipendente1 = this.dipendenteRepository.save(dipendente1);
 		/*Inizializzo Autore*/
-		aut1 = autoreSet("Enea", null);
-		aut2 = autoreSet("Andrea", null);
+		aut1 = autoreSet("Enea", "Ce", null);
+		aut2 = autoreSet("Andrea", "Giaccone", null);
 		
 		/*Salvataggio autori*/
 		System.out.println("Autore id:"+aut1.getId()+" Autore rif: " + aut1.toString());
@@ -115,9 +115,10 @@ public class DBPopulation implements ApplicationRunner{
 		a.setAutore(autoreAlbum);
 		return a;
 	}
-	private Autore autoreSet(String nomeAutore, List<Album> albumAutore) {
+	private Autore autoreSet(String nomeAutore, String cognomeAutore, List<Album> albumAutore) {
 		Autore a = new Autore();
 		a.setNome(nomeAutore);
+		a.setCognome(cognomeAutore);
 		a.setAlbum(albumAutore);
 		return a;
 	}

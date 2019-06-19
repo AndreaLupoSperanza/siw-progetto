@@ -34,6 +34,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/login">Login</a></li>
+					<li><a href="/">Pagina Principale</a></li>
 				</ul>
 			</div>
 		</div>
@@ -41,48 +42,27 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Galleria</h1>
-			<p>Seleziona le foto che desideri acquistare o cambia pagina per
-				vedern altre</p>
-		</div>
-		<div class="jumbotron">
-			<p>
-				<a href="/vaiCercaTuttiAlbumDiUnAutore">Cerca un autore</a>
-			</p>
-			<p>
-				<a href="/vaiCercaTutteFotoDiUnAlbum">Cerca un album</a>
-			</p>
-			<p>
-				<a href="/vaiCercaFotoPerNome">Cerca una foto</a>
-			</p>
-		</div>
-		<div class="jumbotron">
-			<!-- inzio form di acquisizione immagini -->
-			<form th:action="@{/selezionaFoto}" method="GET">
-				<!-- contenitore di tutte le immagini (adattivo) -->
-				<div class="row">
-					<div th:each="foto : ${fotoVisualizzate}">
-						<div class="col-xs-4 text-center">
-							<label class="image-checkbox"> <img
-								class="img-fluid img-thumbnail img-responsive"
-								th:src="${foto.link}"> <!-- uso l'id per non usare l'oggetto, foto, è più comodo -->
-								<input type="checkbox" th:name="fotoSelezione"
-								th:value="${foto.id}" /> <i class="fa fa-check hidden"></i>
-							</label>
-							<p>
-								<a th:href="@{'/foto/'+${foto.id}}" th:text="${foto.nome}">nomeImmagine</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<input name="prossimaPagina" type="hidden" th:value="${pagSucc}" />
-				<button name="action" type="submit" th:value="${pagPrec}"
-					th:text="${pagPrec}">prossimaPagina</button>
-				<button name="action" type="submit" th:value="${pagSucc}"
-					th:text="${pagSucc}">prossimaPagina</button>
-				<button name="action" type="submit" th:value="confermaSel">Conferma
-					Scelta</button>
-				<button name="action" type="submit" th:value="carrello">Carrello</button>
+			<h1>Dati Autore</h1>
+			<p>Inserisci i dati dell'autore di cui vuoi vedere gli album</p>
+			<form th:action="@{/cercaAlbumAutore}" method="POST" th:object="${autore}">
+				<table>
+					<tr>
+						<td>Nome:</td>
+						<td><input type="text" th:field="*{nome}" /></td>
+						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></td>
+					</tr>
+					<tr>
+						<td>Cognome:</td>
+						<td><input type="text" th:field="*{cognome}" /></td>
+						<td th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></td>
+					</tr>
+					<tr>
+						<td>
+							<button type="submit">Invio</button> 
+						</td>
+						<td th:text="${nonEsiste}"></td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>

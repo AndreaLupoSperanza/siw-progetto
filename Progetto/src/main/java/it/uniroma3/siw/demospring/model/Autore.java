@@ -53,5 +53,10 @@ public class Autore {
 	public void setAlbum(List<Album> album) {
 		this.album = album;
 	}
+	
+	public boolean equals(Object o) {
+		Autore a = (Autore) o;
+		return this.id==a.getId();
+	}
 
 }

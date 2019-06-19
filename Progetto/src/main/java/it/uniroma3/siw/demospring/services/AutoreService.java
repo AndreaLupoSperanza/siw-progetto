@@ -34,4 +34,12 @@ public class AutoreService {
 		return this.autoreRepository.findById(id).get();
 	}
 
+	public List<Autore> findByNome(String nome) {
+		return this.autoreRepository.findByNome(nome);
+	}
+
+	public List<Autore> findByCognome(String cognome) {
+		return this.autoreRepository.findByCognome(cognome);
+	}
+
 }
