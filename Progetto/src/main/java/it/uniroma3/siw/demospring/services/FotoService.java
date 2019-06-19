@@ -127,7 +127,6 @@ public class FotoService {
 				if(!fotoSelezionatePrima.contains(foto))
 					fotoSelezionatePrima.add(foto);
 			}
-			fotoSelezionatePrima.addAll(fotoSelezionateAdesso);
 			//Metto le foto di prima e adesso in sessione come nuove selezionatePrima
 			session.setAttribute("fotoSelezionatePrima", fotoSelezionatePrima);
 		}

@@ -26,13 +26,14 @@ public class OrdinazioneController {
 	@Autowired
 	private FotoService fotoService;
 	
+	
+	
 	@RequestMapping(value = "/cancellaOppureAcquistaSelezionate", method = RequestMethod.GET)
 	public String eliminaFotoSelezionate(
 			@RequestParam (value = "action") String action,
 			Model model,
 			HttpSession session,
 			HttpServletRequest request) {
-
 		System.out.println(action);
 		if(action.equals("eliminaSel")) {
 			String[] listFotoIds = request.getParameterValues("fotoSelezione");

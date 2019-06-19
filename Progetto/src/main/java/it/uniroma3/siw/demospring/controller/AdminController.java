@@ -2,12 +2,15 @@ package it.uniroma3.siw.demospring.controller;
 
 
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +18,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.codecommit.model.File;
+import com.amazonaws.services.mediastoredata.model.PutObjectRequest;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 import it.uniroma3.siw.demospring.model.Album;
 import it.uniroma3.siw.demospring.model.Autore;
@@ -47,6 +59,9 @@ public class AdminController {
 	private FotoService fotoService;
 	@Autowired
 	private FotoValidator fotoValidator;
+	@Autowired
+	private AmazonS3 amazonS3Client;
+
 
 	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET)
 	public String getOrdine(@PathVariable ("id") Long id, Model model) {
@@ -170,7 +185,9 @@ public class AdminController {
 		model.addAttribute("foto", foto);
 		return "fotoForm";
 	}
-
+	
+	
+	
 
 
 
