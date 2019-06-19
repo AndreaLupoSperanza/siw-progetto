@@ -34,6 +34,10 @@ public class AlbumService {
 	public Album findAlbumById(Long id) {
 		return this.albumRepository.findById(id).get();
 	}
+
+	public Album findAlbumByNome(String nome) {
+		return this.albumRepository.findByNome(nome);
+	}
 	
 
 }

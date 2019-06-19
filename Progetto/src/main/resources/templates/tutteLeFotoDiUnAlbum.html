@@ -11,7 +11,6 @@
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 <body>
-
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -30,7 +29,8 @@
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/ordini">Pagina Amministratore</a></li>
+					<li><a href="/login">Login</a></li>
+					<li><a href="/ordini">Pagina Principale</a></li>
 				</ul>
 			</div>
 		</div>
@@ -38,38 +38,24 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Aggiunta Foto</h1>
-			<p>Inserisci i dati della foto</p>
-			<!--  
-			<form th:action="@{/addFoto}" method="POST" th:object="${foto}">
-			-->
-			<form th:action="@{/upload}" method="POST" enctype="multipart/form-data" th:object="${foto}">
-				<table>
-					<tr>
-						<td>Nome Foto:</td>
-						<td><input type="text" th:field="*{nome}" /></td>
-						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></td>
-					</tr>
-					<!--  
-					<tr>
-						<td>Link Foto:</td>
-						<td><input type="text" th:field="*{link}" /></td>
-						<td th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></td>
-					</tr>
-					-->
-					<tr>
-						<td>Foto: <input type="file" name="file" accept="image/*">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit">Invio</button>
-						</td>
-						<td th:text="${esiste}"></td>
-					</tr>
-				</table>
-			</form>
+			<h1>Album</h1>
 		</div>
+		<div class="jumbotron">
+			Nome Autore:
+			<div th:text="${autore.nome}">nomeAutoreAlbum</div>
+			Cognome Autore:
+			<div th:text="${autore.cognome}">cognomeAutoreAlbum</div>
+		</div>
+		<div class="jumbotron">
+			Ecco tutte le foto
+			<div th:each="foto : ${leFoto}">
+				<span> <a th:href="@{'/fotoUtente' + '/' + ${foto.id}}"
+					th:text="${foto.id}">idFoto</a>
+				</span> <span th:text="${foto.nome}">nomeFoto</span>
+			</div>
+		</div>
+
+
 	</div>
 
 

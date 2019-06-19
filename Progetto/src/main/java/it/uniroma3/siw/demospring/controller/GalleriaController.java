@@ -5,9 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import it.uniroma3.siw.demospring.services.AlbumService;
+import it.uniroma3.siw.demospring.services.AlbumValidator;
 import it.uniroma3.siw.demospring.services.AutoreService;
 import it.uniroma3.siw.demospring.services.AutoreValidator;
 import it.uniroma3.siw.demospring.services.FotoService;
+import it.uniroma3.siw.demospring.services.FotoValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,11 +32,18 @@ import it.uniroma3.siw.demospring.model.Foto;
 public class GalleriaController {
 
 	@Autowired
+	private FotoValidator fotoValidator;
+	@Autowired
 	private FotoService fotoService;
 	@Autowired
 	private AutoreValidator autoreValidator;
 	@Autowired
 	private AutoreService autoreService;
+	@Autowired
+	private AlbumValidator albumValidator;
+	@Autowired
+	private AlbumService albumService;
+
 
 	@RequestMapping("/")
 	public String paginaInizio(Model model) {
@@ -123,18 +133,6 @@ public class GalleriaController {
 		return "cercaTuttiAlbumDiAutore.html";
 	}
 
-	@RequestMapping( value = "/vaiCercaTutteFotoDiUnAlbum", method = RequestMethod.GET)
-	public String cercaTutteFotoDiUnAlbum(Model model) {
-		model.addAttribute("album", new Album());
-		return "cercaTutteFotoDiUnAlbum.html";
-	}
-
-	@RequestMapping( value = "/vaiCercaFotoPerNome", method = RequestMethod.GET)
-	public String cercaFotoPerNome(Model model) {
-		model.addAttribute("album", new Foto());
-		return "cercaSingolaFoto.html";
-	}
-
 	@RequestMapping(value = "/cercaAlbumAutore", method = RequestMethod.POST)
 	public String cercaAlbumAutore(@ModelAttribute("autore") Autore autore,
 			Model model,
@@ -161,8 +159,71 @@ public class GalleriaController {
 
 		}
 		model.addAttribute("autore",autore);
-		model.addAttribute("nonEsiste", "Dati incompleti");
 		return "cercaTuttiAlbumDiAutore";
-
 	}
+
+	@RequestMapping( value = "/vaiCercaTutteFotoDiUnAlbum", method = RequestMethod.GET)
+	public String cercaTutteFotoDiUnAlbum(Model model) {
+		model.addAttribute("album", new Album());
+		return "cercaTutteFotoDiUnAlbum.html";
+	}
+
+	@RequestMapping(value = "/cercaFotoDiUnAlbum", method = RequestMethod.POST)
+	public String cercaAlbumAutore(@ModelAttribute("album") Album album,
+			Model model,
+			BindingResult bindingResult) { 
+		this.albumValidator.validate(album, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			Album alb = this.albumService.findAlbumByNome(album.getNome().trim());
+			if(alb!=null) {
+				model.addAttribute("autore", alb.getAutore());
+				model.addAttribute("leFoto", alb.getFotografie());
+				return "tutteLeFotoDiUnAlbum.html";
+			}else {
+				model.addAttribute("nonEsiste", "Questo album non esiste");
+				return "cercaTutteFotoDiUnAlbum.html";
+			}
+		}
+		return "cercaTutteFotoDiUnAlbum.html";
+	}
+
+	@RequestMapping(value="/fotoUtente/{id}", method = RequestMethod.GET)
+	public String getFotoUtente(@PathVariable("id") Long id, Model model){
+		if (id!=null) {
+			model.addAttribute("foto",this.fotoService.findFotoById(id));
+			return "fotoUtente.html";
+		}
+		else {
+			return "index";
+		}
+	}
+
+	@RequestMapping( value = "/vaiCercaFotoPerNome", method = RequestMethod.GET)
+	public String cercaFotoPerNome(Model model) {
+		model.addAttribute("foto", new Foto());
+		return "cercaSingolaFoto.html";
+	}
+
+	@RequestMapping(value = "/cercaFoto", method = RequestMethod.POST)
+	public String singolaFoto(@ModelAttribute("album") Foto foto,
+			Model model,
+			BindingResult bindingResult) { 
+		this.fotoValidator.validate(foto, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			Foto fot = this.fotoService.findFotoByNome(foto.getNome());
+			if(fot!=null) {
+				model.addAttribute("foto", fot);
+				return "fotoUtente";
+			}else {
+				model.addAttribute("foto", foto);
+				model.addAttribute("nonEsiste", "Questa foto non esiste");
+				return "cercaSingolaFoto.html";
+			}
+		}
+		model.addAttribute("foto", foto);
+		return "cercaSingolaFoto.html";
+	}	
 }
+
+
+

@@ -183,5 +183,9 @@ public class FotoService {
 		this.fotoRepository.save(foto);
 	}
 
+	public Foto findFotoByNome(String nome) {
+		return this.fotoRepository.findByNome(nome);
+	}
+
 
 }

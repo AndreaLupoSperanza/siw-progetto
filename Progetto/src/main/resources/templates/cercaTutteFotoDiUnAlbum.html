@@ -9,6 +9,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
+
 </head>
 <body>
 
@@ -30,7 +33,8 @@
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/ordini">Pagina Amministratore</a></li>
+					<li><a href="/login">Login</a></li>
+					<li><a href="/">Pagina Principale</a></li>
 				</ul>
 			</div>
 		</div>
@@ -38,34 +42,21 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Aggiunta Foto</h1>
-			<p>Inserisci i dati della foto</p>
-			<!--  
-			<form th:action="@{/addFoto}" method="POST" th:object="${foto}">
-			-->
-			<form th:action="@{/upload}" method="POST" enctype="multipart/form-data" th:object="${foto}">
+			<h1>Dati Album</h1>
+			<p>Inserisci il nome dell'album che stai cercando</p>
+			<form th:action="@{/cercaFotoDiUnAlbum}" method="POST"
+				th:object="${album}">
 				<table>
 					<tr>
-						<td>Nome Foto:</td>
+						<td>Nome:</td>
 						<td><input type="text" th:field="*{nome}" /></td>
 						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></td>
-					</tr>
-					<!--  
-					<tr>
-						<td>Link Foto:</td>
-						<td><input type="text" th:field="*{link}" /></td>
-						<td th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></td>
-					</tr>
-					-->
-					<tr>
-						<td>Foto: <input type="file" name="file" accept="image/*">
-						</td>
 					</tr>
 					<tr>
 						<td>
 							<button type="submit">Invio</button>
 						</td>
-						<td th:text="${esiste}"></td>
+						<td th:text="${nonEsiste}"></td>
 					</tr>
 				</table>
 			</form>

@@ -73,16 +73,16 @@ public class DBPopulation implements ApplicationRunner{
 		
 	
 		/*Inizializzo Foto*/
-		f1 = fotoSet("GiaccaSuTela", alb1, "https://i.ytimg.com/vi/NBqO322JRyI/maxresdefault.jpg");
-		f2 = fotoSet("GiaccaSuTela", alb1, "https://besthqwallpapers.com/img/original/49380/bengal-cat-exotic-jungle-cats-4k-small-gray-kitten-pets.jpg");
-		f3 = fotoSet("GiaccaSuTela", alb1, "https://footage.framepool.com/shotimg/qf/298838331-living-being-european-wildcat-kitten-feeding-brood-care.jpg");
-		f4 = fotoSet("GiaccaSuTela", alb1, "https://besthqwallpapers.com/Uploads/30-10-2017/26294/thumb2-aegean-cat-4k-muzzle-cute-animals-cats.jpg");
-		f5 = fotoSet("GiaccaSuTela", alb1, "https://forzoo.ru/assets/vodob-vi-695x652.png");
-		f6 = fotoSet("GiaccaSuTela", alb2, "https://images8.alphacoders.com/532/532996.jpg");
-		f7 = fotoSet("GiaccaSuTela", alb2, "http://4everstatic.com/imagenes/850xX/animales/gatos/gato-negro,-ojos-verdes-210920.jpg");
-		f8 = fotoSet("GiaccaSuTela", alb2, "https://st3.depositphotos.com/14828974/17844/v/600/depositphotos_178440952-stock-video-close-up-4k-green-eyes.jpg");
-		f9 = fotoSet("GiaccaSuTela", alb2, "https://i.pinimg.com/originals/75/ff/9b/75ff9b08607e1302415712c317591d53.png");
-		f10 = fotoSet("GiaccaSuTela", alb2, "https://besthqwallpapers.com/Uploads/6-5-2018/51316/thumb2-4k-scottish-fold-cat-domestic-cat-gray-cat-close-up.jpg");
+		f1 = fotoSet("GiaccaSuTela1", alb1, "https://i.ytimg.com/vi/NBqO322JRyI/maxresdefault.jpg");
+		f2 = fotoSet("GiaccaSuTela2", alb1, "https://besthqwallpapers.com/img/original/49380/bengal-cat-exotic-jungle-cats-4k-small-gray-kitten-pets.jpg");
+		f3 = fotoSet("GiaccaSuTela3", alb1, "https://footage.framepool.com/shotimg/qf/298838331-living-being-european-wildcat-kitten-feeding-brood-care.jpg");
+		f4 = fotoSet("GiaccaSuTela4", alb1, "https://besthqwallpapers.com/Uploads/30-10-2017/26294/thumb2-aegean-cat-4k-muzzle-cute-animals-cats.jpg");
+		f5 = fotoSet("GiaccaSuTela5", alb1, "https://forzoo.ru/assets/vodob-vi-695x652.png");
+		f6 = fotoSet("GiaccaSuTela6", alb2, "https://images8.alphacoders.com/532/532996.jpg");
+		f7 = fotoSet("GiaccaSuTela7", alb2, "http://4everstatic.com/imagenes/850xX/animales/gatos/gato-negro,-ojos-verdes-210920.jpg");
+		f8 = fotoSet("GiaccaSuTela8", alb2, "https://st3.depositphotos.com/14828974/17844/v/600/depositphotos_178440952-stock-video-close-up-4k-green-eyes.jpg");
+		f9 = fotoSet("GiaccaSuTela9", alb2, "https://i.pinimg.com/originals/75/ff/9b/75ff9b08607e1302415712c317591d53.png");
+		f10 = fotoSet("GiaccaSuTela10", alb2, "https://besthqwallpapers.com/Uploads/6-5-2018/51316/thumb2-4k-scottish-fold-cat-domestic-cat-gray-cat-close-up.jpg");
 
 		/*Salvataggio foto*/
 		f1 = this.fotoRepository.save(f1);
