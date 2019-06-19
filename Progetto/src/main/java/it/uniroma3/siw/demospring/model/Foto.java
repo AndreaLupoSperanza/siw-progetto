@@ -41,7 +41,7 @@ public class Foto {
 
 	public boolean equals(Object o) {
 		Foto f = (Foto) o;
-		return this.link==f.getLink();
+		return this.link.equals(f.getLink());
 	}
 
 

@@ -43,11 +43,14 @@ public class OrdinazioneController {
 			if(action.equals("acquista")) {
 				List<Foto> fotoSelezionatePrima = (List<Foto>) session.getAttribute("fotoSelezionatePrima");
 				if(fotoSelezionatePrima!=null) {
-					model.addAttribute("ordine", new Ordine());
-					return "ordineForm";
-				}else {
-					model.addAttribute("nessunaFotoSelezionata","Nessuna foto selezionata");
+					if(fotoSelezionatePrima.size()>0) {
+						model.addAttribute("ordine", new Ordine());
+						return "ordineForm";
+					}else {
+						model.addAttribute("nessunaFotoSelezionata","Nessuna foto selezionata");
+					}
 				}
+				
 				
 			}
 		}
