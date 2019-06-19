@@ -25,9 +25,9 @@ public class OrdinazioneController {
 	private OrdineFormValidator ordineFormValidator;
 	@Autowired
 	private FotoService fotoService;
-	
-	
-	
+
+
+
 	@RequestMapping(value = "/cancellaOppureAcquistaSelezionate", method = RequestMethod.GET)
 	public String eliminaFotoSelezionate(
 			@RequestParam (value = "action") String action,
@@ -50,13 +50,13 @@ public class OrdinazioneController {
 						model.addAttribute("nessunaFotoSelezionata","Nessuna foto selezionata");
 					}
 				}
-				
-				
+
+
 			}
 		}
 		return "dettagliOrdinazione";
 	}
-	
+
 	@RequestMapping(value = "/confermaOppureAnnullaAcquisto", method = RequestMethod.POST)
 	public String confermaOppureAnnullaAcquisto(
 			@ModelAttribute (value = "ordine") Ordine ordine,

@@ -9,8 +9,12 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
+
 </head>
 <body>
+
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -29,8 +33,7 @@
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/">Logout</a></li>
-					<li><a href="/">Pagina Principale</a></li>
+					<li><a href="/login">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -38,24 +41,13 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Album</h1>
+			<h1>Dettagli Album</h1>
+			Nome Album:
+			<p th:text="${album.nome}">Nome Album</p>
+			Nome Fotografo:
+			<p th:text="${album.autore.nome}">Nome Fotografo</p>
 		</div>
-		<div class="jumbotron">
-			Ecco tutti gli album
-		</div>
-		<div th:each="album : ${gliAlbum}">
-			<span> <a th:href="@{'/albumAdmin' + '/' + ${album.id}}"
-				th:text="${album.id}">Rossi</a>
-			</span> <span th:text="${album.nome}"></span>
-		</div>
-
-
 	</div>
-
-
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script

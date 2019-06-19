@@ -62,7 +62,6 @@ public class AdminController {
 	@Autowired
 	private AmazonS3 amazonS3Client;
 
-
 	@RequestMapping(value = "/ordine/{id}", method = RequestMethod.GET)
 	public String getOrdine(@PathVariable ("id") Long id, Model model) {
 		if(id!=null) {
@@ -74,6 +73,24 @@ public class AdminController {
 		}
 		model.addAttribute("ordini", this.ordineService.tuttiOrdini());
 		return "amministratore";
+	}
+	
+	@RequestMapping(value = "/tuttiAutoriAdmin", method = RequestMethod.GET)
+	public String getTuttiAutori(Model model) {
+		model.addAttribute("autori", this.autoreService.tuttiGliAutore());
+		return "autoriAdmin.html";
+	}
+	
+	@RequestMapping(value = "/tuttiAlbumAdmin", method = RequestMethod.GET)
+	public String getAlbumAdmin(Model model) {
+		model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
+		return "tuttiALbumAdmin.html";
+	}
+	
+	@RequestMapping(value = "/tuttiFotoAdmin", method = RequestMethod.GET)
+	public String getFotoAdmin(Model model) {
+		model.addAttribute("leFoto", this.fotoService.findAllFoto());
+		return "tutteFotoAdmin.html";
 	}
 
 	@RequestMapping(value = "/ordini", method = RequestMethod.GET)
@@ -93,7 +110,7 @@ public class AdminController {
 		model.addAttribute("autori", this.autoreService.tuttiGliAutore());
 		return "selAutorePerAddAlbum";
 	}
-	
+
 	@RequestMapping(value = "/selAutorePerAddAlbum/{id}", method = RequestMethod.GET)
 	public String selAutorePerAddAlbum(
 			@PathVariable("id") Long id,
@@ -110,8 +127,7 @@ public class AdminController {
 		model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
 		return "selAlbumPerAddFoto";
 	}
-	
-	
+
 	@RequestMapping(value = "/selAlbumPerAddFoto/{id}", method = RequestMethod.GET)
 	public String selAlbumPerAddFoto(
 			@PathVariable("id") Long id,
@@ -122,7 +138,24 @@ public class AdminController {
 		model.addAttribute("foto", new Foto());
 		return "addFoto.html";
 	}
-	
+
+	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
+	public String addAutore(@Valid @ModelAttribute("album") Album album,
+			Model model, BindingResult bindingResult) {
+
+		this.albumValidator.validate(album, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			if(this.albumService.esiste(album)) {
+				model.addAttribute("esiste", "Questo album esiste già");
+			}else {
+				this.albumService.inserisci(album);
+				model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
+				return "tuttiGliAlbum";
+			}
+		}
+		model.addAttribute("album", album);
+		return "addAlbum";
+	}
 
 	@RequestMapping(value = "/addFoto", method = RequestMethod.POST)
 	public String addAlbum(@Valid @ModelAttribute("foto") Foto foto,
@@ -156,27 +189,23 @@ public class AdminController {
 				model.addAttribute("esiste", "Questo autore esiste già");
 			}else {
 				this.autoreService.inserisci(autore);
-				model.addAttribute("autore", this.autoreService.tuttiGliAutore());
-				return "autori";
+				model.addAttribute("autori", this.autoreService.tuttiGliAutore());
+				return "tuttiGliAutori";
 			}
 		}
 		model.addAttribute("autore", autore);
 		return "addAutore";
 	}
-	
-	
-	
-	
+
 	@RequestMapping(value = "/addFotoLink", method = RequestMethod.POST)
 	public String addFoto(@Valid @ModelAttribute("foto") Foto foto,
 			Model model, BindingResult bindingResult) {
-
-		//this.fotoValidator.validate(foto, bindingResult);
+		this.fotoValidator.validate(foto, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			if(this.fotoService.esiste(foto)) {
 				model.addAttribute("esiste", "Una foto con questo link esiste già");
 			}else {
-				
+
 				this.fotoService.inserisci(foto);
 				model.addAttribute("foto", this.fotoService.tutteFoto());
 				return "tutteFoto";
@@ -185,9 +214,39 @@ public class AdminController {
 		model.addAttribute("foto", foto);
 		return "fotoForm";
 	}
-	
-	
-	
+
+	@RequestMapping(value="/fotoAdmin/{id}", method = RequestMethod.GET)
+	public String getFoto(@PathVariable("id") Long id, Model model){
+		if (id!=null) {
+			model.addAttribute("foto",this.fotoService.findFotoById(id));
+			return "fotoAdmin.html";
+		}
+		else {
+			return "amministratore";
+		}
+	}
+
+	@RequestMapping(value="/albumAdmin/{id}", method = RequestMethod.GET)
+	public String getAlbum(@PathVariable("id") Long id, Model model){
+		if (id!=null) {
+			model.addAttribute("album",this.albumService.findAlbumById(id));
+			return "albumAdmin.html";
+		}
+		else {
+			return "amministratore";
+		}
+	}
+
+	@RequestMapping(value="/autoreAdmin/{id}", method = RequestMethod.GET)
+	public String getAutore(@PathVariable("id") Long id, Model model){
+		if (id!=null) {
+			model.addAttribute("autore",this.autoreService.findAutoreById(id));
+			return "autoreAdmin.html";
+		}
+		else {
+			return "amministratore";
+		}
+	}
 
 
 

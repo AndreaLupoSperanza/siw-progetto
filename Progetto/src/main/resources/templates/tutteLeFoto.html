@@ -44,7 +44,7 @@
 			Ecco tutte le foto
 		</div>
 		<div th:each="foto : ${leFoto}">
-			<span> <a th:href="@{'/foto' + '/' + ${foto.id}}"
+			<span> <a th:href="@{'/fotoAdmin' + '/' + ${foto.id}}"
 				th:text="${foto.id}">idFoto</a>
 			</span> <span th:text="${foto.nome}">nomeFoto</span>
 		</div>

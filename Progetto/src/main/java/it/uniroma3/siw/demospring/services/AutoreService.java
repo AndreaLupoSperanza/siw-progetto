@@ -30,4 +30,8 @@ public class AutoreService {
 		return this.autoreRepository.findById(id).get();
 	}
 
+	public Autore findAutoreById(Long id) {
+		return this.autoreRepository.findById(id).get();
+	}
+
 }

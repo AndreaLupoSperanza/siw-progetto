@@ -30,6 +30,10 @@ public class AlbumService {
 	public Album getSingoloAlbum(Long id) {
 		return this.albumRepository.findById(id).get();
 	}
+
+	public Album findAlbumById(Long id) {
+		return this.albumRepository.findById(id).get();
+	}
 	
 
 }

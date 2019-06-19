@@ -45,8 +45,6 @@ public class GalleriaController {
 			HttpSession session,
 			HttpServletRequest request) {
 		String prossimaPagina = "index";
-
-	
 				System.out.println(action);
 				if(action.equals("confermaSel")) {
 					String[] listFotoIds = request.getParameterValues("fotoSelezione");
@@ -76,11 +74,6 @@ public class GalleriaController {
 		return prossimaPagina;
 	}
 
-
-
-	/*
-	 * Serve per ottenere tutte le foto dell'ordine attuale
-	 */
 	@RequestMapping("/getDettagliOrdine")
 	public String dettagliOrdinazione(Model model, 
 			HttpSession session) {
@@ -89,12 +82,11 @@ public class GalleriaController {
 		return "dettagliOrdinazione";
 	}
 
-
 	@RequestMapping(value="/foto/{id}", method = RequestMethod.GET)
 	public String getFoto(@PathVariable("id") Long id, Model model){
 		if (id!=null) {
 			model.addAttribute("foto",this.fotoService.findFotoById(id));
-			return "foto.html";
+			return "fotoAdmin.html";
 		}
 		else {
 			model.addAttribute("fotoVisualizzate", this.fotoService.findAllFoto());

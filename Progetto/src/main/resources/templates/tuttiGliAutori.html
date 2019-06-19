@@ -38,15 +38,16 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Amministratore</h1>
+			<h1>Album</h1>
 		</div>
 		<div class="jumbotron">
-			Ciao amico
+			Ecco tutti gli autori
 		</div>
-		<div th:each="ordine : ${ordini}">
-			<span> <a th:href="@{'/ordine' + '/' + ${ordine.id}}"
-				th:text="${ordine.cognomeAcquirente}">Rossi</a>
-			</span> <span th:text="${ordine.nomeAcquirente}"></span>
+		<div th:each="autore : ${autori}">
+			<span> <a th:href="@{'/autoreAdmin' + '/' + ${autore.id}}"
+				th:text="${autore.id}">id</a>
+			</span> <span th:text="${autore.nome}">autoreNome</span>
+			<span th:text="${autore.cognome}">autoreCognome</span>
 		</div>
 
 
