@@ -56,8 +56,8 @@ public class FotoService {
 	}
 
 	public List<Foto> getFotoPaginaSuccessivaDaVisualizzare(int pagina) {
-		int primaFotoPagina = pagina*10;
-		int ultimaFotoPagina = primaFotoPagina+10;
+		int ultimaFotoPagina = pagina*10;
+		int primaFotoPagina = ultimaFotoPagina-10;
 
 		List<Foto> fotoDellaPaginaIndicata = new ArrayList<Foto>();
 
