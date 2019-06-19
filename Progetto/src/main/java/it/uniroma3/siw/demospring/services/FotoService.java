@@ -68,6 +68,11 @@ public class FotoService {
 				System.out.println("Arrivati all'ultima pagina");
 			}
 		}
+		/*
+		 *if(fotoDellaPaginaIndicata.size()<1) {
+		 * fotoDellaPaginaIndicata = this.getFotoPaginaSuccessivaDaVisualizzare(pagina-1);
+		 * }
+		 */
 
 		return fotoDellaPaginaIndicata;
 	}
@@ -118,6 +123,10 @@ public class FotoService {
 			//Cerco le foto selezionate adesso
 			List<Foto> fotoSelezionateAdesso = this.findAllFoto(fotoSelezionateAdessoIds);
 			//Le aggiungo alle selezionate prima
+			for(Foto foto : fotoSelezionateAdesso) {
+				if(!fotoSelezionatePrima.contains(foto))
+					fotoSelezionatePrima.add(foto);
+			}
 			fotoSelezionatePrima.addAll(fotoSelezionateAdesso);
 			//Metto le foto di prima e adesso in sessione come nuove selezionatePrima
 			session.setAttribute("fotoSelezionatePrima", fotoSelezionatePrima);
@@ -170,7 +179,7 @@ public class FotoService {
 	public List<Foto> tutteFoto() {
 		return (List<Foto>) this.fotoRepository.findAll();
 	}
-	
+
 	public void inserisci(Foto foto) {
 		this.fotoRepository.save(foto);
 	}
