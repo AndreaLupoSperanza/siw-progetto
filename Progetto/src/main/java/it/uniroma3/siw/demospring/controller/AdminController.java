@@ -270,21 +270,27 @@ public class AdminController {
 		Album albumSel = (Album) session.getAttribute("AlbumFoto");
 		this.fotoValidator.validate(foto, bindingResult);
 		if(!bindingResult.hasErrors()) {
-			File convFile = null;
-			try {
-				convFile=this.convertMultiPartToFile(file);
-			}catch (IOException e) {
-				return "erroreFoto";
+			Foto fot = this.fotoService.findFotoByNome(foto.getNome());
+			if(fot==null) {
+				File convFile = null;
+				try {
+					convFile=this.convertMultiPartToFile(file);
+				}catch (IOException e) {
+					return "erroreFoto";
+				}
+				//per salvare su amazon
+				this.uploadFileToS3bucket("it.siw.uniroma3.cuomo", convFile, foto.getNome());
+				//per prendere l'url dove ha salvato la risorda
+				String link=amazonS3Client.getUrl("it.siw.uniroma3.cuomo", foto.getNome()).toString();
+				foto.setLink(link);
+				foto.setAlbum(albumSel);
+				System.out.println(albumSel.getNome());
+				this.fotoService.inserisci(foto);
+				model.addAttribute("leFoto", this.fotoService.findAllFoto());
+			}else {
+				model.addAttribute("foto", foto);
+				return "addFoto.html";
 			}
-			//per salvare su amazon
-			this.uploadFileToS3bucket("it.siw.uniroma3.cuomo", convFile, foto.getNome());
-			//per prendere l'url dove ha salvato la risorda
-			String link=amazonS3Client.getUrl("it.siw.uniroma3.cuomo", foto.getNome()).toString();
-			foto.setLink(link);
-			foto.setAlbum(albumSel);
-			System.out.println(albumSel.getNome());
-			this.fotoService.inserisci(foto);
-			model.addAttribute("leFoto", this.fotoService.findAllFoto());
 		}
 		return "tutteLeFotoAdmin.html";
 	}
