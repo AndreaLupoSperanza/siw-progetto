@@ -2,6 +2,8 @@ package it.uniroma3.siw.demospring.controller;
 
 
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,10 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.codecommit.model.File;
-import com.amazonaws.services.mediastoredata.model.PutObjectRequest;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import it.uniroma3.siw.demospring.model.Album;
 import it.uniroma3.siw.demospring.model.Autore;
@@ -74,23 +75,23 @@ public class AdminController {
 		model.addAttribute("ordini", this.ordineService.tuttiOrdini());
 		return "amministratore";
 	}
-	
+
 	@RequestMapping(value = "/tuttiAutoriAdmin", method = RequestMethod.GET)
 	public String getTuttiAutori(Model model) {
 		model.addAttribute("autori", this.autoreService.tuttiGliAutore());
-		return "autoriAdmin.html";
+		return "tuttiGliAutoriAdmin.html";
 	}
-	
+
 	@RequestMapping(value = "/tuttiAlbumAdmin", method = RequestMethod.GET)
 	public String getAlbumAdmin(Model model) {
 		model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
-		return "tuttiALbumAdmin.html";
+		return "tuttiGliAlbumAdmin.html";
 	}
-	
+
 	@RequestMapping(value = "/tuttiFotoAdmin", method = RequestMethod.GET)
 	public String getFotoAdmin(Model model) {
 		model.addAttribute("leFoto", this.fotoService.findAllFoto());
-		return "tutteFotoAdmin.html";
+		return "tutteLeFotoAdmin.html";
 	}
 
 	@RequestMapping(value = "/ordini", method = RequestMethod.GET)
@@ -150,7 +151,7 @@ public class AdminController {
 			}else {
 				this.albumService.inserisci(album);
 				model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
-				return "tuttiGliAlbum";
+				return "tuttiGliAlbumAdmin.html";
 			}
 		}
 		model.addAttribute("album", album);
@@ -172,7 +173,7 @@ public class AdminController {
 			}else {
 				this.fotoService.inserisci(foto);
 				model.addAttribute("leFoto", this.fotoService.tutteFoto());
-				return "tutteLeFoto.html";
+				return "tutteFotoAdmin.html";
 			}
 		}
 		model.addAttribute("foto", foto);
@@ -190,7 +191,7 @@ public class AdminController {
 			}else {
 				this.autoreService.inserisci(autore);
 				model.addAttribute("autori", this.autoreService.tuttiGliAutore());
-				return "tuttiGliAutori";
+				return "tuttiGliAutoriAdmin.html";
 			}
 		}
 		model.addAttribute("autore", autore);
@@ -208,7 +209,7 @@ public class AdminController {
 
 				this.fotoService.inserisci(foto);
 				model.addAttribute("foto", this.fotoService.tutteFoto());
-				return "tutteFoto";
+				return "tutteLeFoto";
 			}
 		}
 		model.addAttribute("foto", foto);
@@ -246,6 +247,56 @@ public class AdminController {
 		else {
 			return "amministratore";
 		}
+	}
+
+	@Bean
+	public AmazonS3 amazonS3Client(AWSCredentialsProvider credentialsProvider,
+			@Value("${cloud.aws.region.static}") String region) {
+		return AmazonS3ClientBuilder
+				.standard()
+				.withCredentials(credentialsProvider)
+				.withRegion(Regions.EU_CENTRAL_1)
+				.build();
+	}
+
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String uploadFoto(@Valid @ModelAttribute("foto") Foto foto, 
+			Model model,
+			BindingResult bindingResult,
+			@RequestParam("file") MultipartFile file,
+			HttpSession session) {
+		Album albumSel = (Album) session.getAttribute("idAlbumFoto");
+		this.fotoValidator.validate(foto, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			File convFile = null;
+			try {
+				convFile=this.convertMultiPartToFile(file);
+			}catch (IOException e) {
+				return "erroreFoto";
+			}
+			//per salvare su amazon
+			this.uploadFileToS3bucket("it.siw.uniroma3.cuomo", convFile, foto.getNome());
+			//per prendere l'url dove ha salvato la risorda
+			String link=amazonS3Client.getUrl("it.siw.uniroma3.cuomo", foto.getNome()).toString();
+			foto.setLink(link);
+			foto.setAlbum(albumSel);
+			this.fotoService.inserisci(foto);
+			model.addAttribute("leFoto", this.fotoService.findAllFoto());
+		}
+		return "tutteLeFotoAdmin.html";
+	}
+
+	private void uploadFileToS3bucket(String bucketName, File file, String fileName) {
+		amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, file));
+	}
+
+
+	private File convertMultiPartToFile(MultipartFile file) throws IOException {
+		File convFile = new File(file.getOriginalFilename());
+		FileOutputStream fos = new FileOutputStream(convFile);
+		fos.write(file.getBytes());
+		fos.close();
+		return convFile;
 	}
 
 

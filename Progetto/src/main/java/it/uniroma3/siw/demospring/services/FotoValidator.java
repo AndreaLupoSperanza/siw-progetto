@@ -17,7 +17,6 @@ public class FotoValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors error) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(error, "nome", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(error, "link", "required");
 	}
 
 
