@@ -118,7 +118,7 @@ public class AdminController {
 			HttpSession session,
 			Model model) {
 		Autore autoreSel = this.autoreService.getSingoloAutore(id);
-		session.setAttribute("idAutoreAlbum", autoreSel);
+		session.setAttribute("AutoreAlbum", autoreSel);
 		model.addAttribute("album", new Album());
 		return "addAlbum.html";
 	}
@@ -135,20 +135,22 @@ public class AdminController {
 			HttpSession session,
 			Model model) {
 		Album albumSel = this.albumService.getSingoloAlbum(id);
-		session.setAttribute("idAlbumFoto", albumSel);
+		session.setAttribute("AlbumFoto", albumSel);
 		model.addAttribute("foto", new Foto());
 		return "addFoto.html";
 	}
 
 	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
 	public String addAutore(@Valid @ModelAttribute("album") Album album,
-			Model model, BindingResult bindingResult) {
-
+			Model model, BindingResult bindingResult,
+			HttpSession session) {
+		Autore autore = (Autore) session.getAttribute("AutoreAlbum");
 		this.albumValidator.validate(album, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			if(this.albumService.esiste(album)) {
 				model.addAttribute("esiste", "Questo album esiste già");
 			}else {
+				album.setAutore(autore);
 				this.albumService.inserisci(album);
 				model.addAttribute("gliAlbum", this.albumService.tuttiGliAlbum());
 				return "tuttiGliAlbumAdmin.html";
@@ -164,7 +166,7 @@ public class AdminController {
 			BindingResult bindingResult,
 			HttpSession session) {
 
-		Album albumSel = (Album) session.getAttribute("idAlbumFoto");
+		Album albumSel = (Album) session.getAttribute("AlbumFoto");
 		foto.setAlbum(albumSel);
 		this.fotoValidator.validate(foto, bindingResult);
 		if(!bindingResult.hasErrors()) {
@@ -265,7 +267,7 @@ public class AdminController {
 			BindingResult bindingResult,
 			@RequestParam("file") MultipartFile file,
 			HttpSession session) {
-		Album albumSel = (Album) session.getAttribute("idAlbumFoto");
+		Album albumSel = (Album) session.getAttribute("AlbumFoto");
 		this.fotoValidator.validate(foto, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			File convFile = null;
@@ -280,6 +282,7 @@ public class AdminController {
 			String link=amazonS3Client.getUrl("it.siw.uniroma3.cuomo", foto.getNome()).toString();
 			foto.setLink(link);
 			foto.setAlbum(albumSel);
+			System.out.println(albumSel.getNome());
 			this.fotoService.inserisci(foto);
 			model.addAttribute("leFoto", this.fotoService.findAllFoto());
 		}
