@@ -62,7 +62,7 @@
 					</div>
 				</div>
 			</div>
-
+			<input name="prossimaPagina" type="hidden" th:value="${pagSucc}"/>
 			<button name="action" type="submit" th:value="${pagPrec}" th:text="${pagPrec}">prossimaPagina</button>
 			<button name="action" type="submit" th:value="${pagSucc}" th:text="${pagSucc}">prossimaPagina</button>
 			<button name="action" type="submit" th:value="confermaSel">Conferma Scelta</button>

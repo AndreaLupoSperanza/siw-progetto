@@ -48,7 +48,12 @@ public class GalleriaController {
 				System.out.println(action);
 				if(action.equals("confermaSel")) {
 					String[] listFotoIds = request.getParameterValues("fotoSelezione");
+					int prossimaPag = Integer.parseInt((String) request.getParameter("prossimaPagina"));
 					this.fotoService.aggiornaCarrelloConFotoSelezionateAdesso(listFotoIds, model, session);
+					List<Foto> prossimeDaVisualizzare = this.fotoService.getFotoPaginaSuccessivaDaVisualizzare(prossimaPag);
+					model.addAttribute("fotoVisualizzate", prossimeDaVisualizzare);
+					model.addAttribute("pagPrec", prossimaPag-1);
+					model.addAttribute("pagSucc", prossimaPag+1);
 					return "index";
 				}else {
 					if(action.equals("carrello")) {
