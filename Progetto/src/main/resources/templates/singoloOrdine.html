@@ -43,15 +43,20 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Dettagli Ordine</h1>
+		</div>
+		<div class="jumbotron">
 			<h3 th:text="${ordine.id}">idOrdine</h3>
 			<h3 th:text="${ordine.nomeAcquirente}">nomeAcquirente</h3>
 			<h3 th:text="${ordine.cognomeAcquirente}">cognomeAcquirente</h3>
 			<h3 th:text="${ordine.numeroTelefonico}">numeroTelefonicoAcquirente</h3>
-			<div class="row">
-				<div th:each="riga : ${righeOrdinazione}">
-					<div class="col-xs-4 text-left">
-						<img class="img-fluid img-thumbnail img-responsive"
-							th:src="${riga.foto.link}"> ID:
+		</div>
+		<div th:each="riga : ${righeOrdinazione}">
+			<div class="jumbotron">
+				<div class="text-left">
+					<img class="img-fluid img-thumbnail img-responsive"
+						th:src="${riga.foto.link}">
+					<div>
+						ID:
 						<p th:text="${riga.foto.id}">NomeFoto</p>
 						Nome:
 						<p th:text="${riga.foto.nome}">NomeFoto</p>

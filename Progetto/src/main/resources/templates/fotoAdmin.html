@@ -43,7 +43,7 @@
 		<div class="jumbotron">
 			<h1>Dettagli Foto</h1>
 			<p>
-				<img th:src="${foto.link}">
+				<img th:src="${foto.link}" class="img-fluid img-thumbnail img-responsive">
 			</p>
 			<p th:text="'Nome: '+${foto.nome}">Nome Foto</p>
 			<p th:text="'Album: '+${foto.album.nome}">Nome album</p>

@@ -69,6 +69,8 @@ public class GalleriaController {
 						if(pagina<1)
 							pagina=1;
 						System.out.println(pagina);
+						String[] listFotoIds = request.getParameterValues("fotoSelezione");
+						this.fotoService.aggiornaCarrelloConFotoSelezionateAdesso(listFotoIds, model, session);
 						List<Foto> successiveFotoDaVisualizzare = this.fotoService.getFotoPaginaSuccessivaDaVisualizzare(pagina);
 						model.addAttribute("fotoVisualizzate", successiveFotoDaVisualizzare);
 						model.addAttribute("pagPrec", pagina-1);
