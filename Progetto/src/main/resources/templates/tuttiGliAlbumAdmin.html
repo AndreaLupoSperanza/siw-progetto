@@ -38,23 +38,16 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Album</h1>
+			<h3>Ecco tutti gli album</h3>
 		</div>
 		<div class="jumbotron">
-			Ecco tutti gli album
+			<div th:each="album : ${gliAlbum}">
+				<span> <a th:href="@{'/albumAdmin' + '/' + ${album.id}}"
+					th:text="${album.id}">Rossi</a>
+				</span> <span th:text="${album.nome}"></span>
+			</div>
 		</div>
-		<div th:each="album : ${gliAlbum}">
-			<span> <a th:href="@{'/albumAdmin' + '/' + ${album.id}}"
-				th:text="${album.id}">Rossi</a>
-			</span> <span th:text="${album.nome}"></span>
-		</div>
-
-
 	</div>
-
-
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script

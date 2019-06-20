@@ -1,8 +1,6 @@
 package it.uniroma3.siw.demospring.repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -16,9 +14,6 @@ import it.uniroma3.siw.demospring.model.Foto;
 import it.uniroma3.siw.demospring.model.Ordine;
 import it.uniroma3.siw.demospring.model.RigaOrdinazione;
 
-/*
- * è un componente della nostra applicazione
- */
 @Component
 public class DBPopulation implements ApplicationRunner{
 

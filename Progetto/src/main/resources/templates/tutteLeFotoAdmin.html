@@ -38,23 +38,16 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Foto</h1>
+			<h3>Ecco tutte le foto</h3>
 		</div>
 		<div class="jumbotron">
-			Ecco tutte le foto
+			<div th:each="foto : ${leFoto}">
+				<span> <a th:href="@{'/fotoAdmin' + '/' + ${foto.id}}"
+					th:text="${foto.id}">idFoto</a>
+				</span> <span th:text="${foto.nome}">nomeFoto</span>
+			</div>
 		</div>
-		<div th:each="foto : ${leFoto}">
-			<span> <a th:href="@{'/fotoAdmin' + '/' + ${foto.id}}"
-				th:text="${foto.id}">idFoto</a>
-			</span> <span th:text="${foto.nome}">nomeFoto</span>
-		</div>
-
-
 	</div>
-
-
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script

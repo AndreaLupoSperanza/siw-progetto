@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.siw.demospring.model.Album;
 import it.uniroma3.siw.demospring.model.Foto;
-import it.uniroma3.siw.demospring.model.Autore;
 
 public interface FotoRepository extends CrudRepository<Foto, Long>{
 

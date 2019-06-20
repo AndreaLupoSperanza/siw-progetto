@@ -1,7 +1,5 @@
 package it.uniroma3.siw.demospring.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
