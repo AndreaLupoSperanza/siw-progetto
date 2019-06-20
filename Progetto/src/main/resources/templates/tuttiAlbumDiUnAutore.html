@@ -39,14 +39,19 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Album</h1>
-		</div>
-		<div class="jumbotron">Ecco tutti gli album dell'autore</div>
-		<div class="jumbotron">
-			Id: <div th:text="${autore.id}">AutoreId</div>
-			Nome: <div th:text="${autore.nome}">AutoreId</div>
-			Cognome: <div th:text="${autore.cognome}">AutoreId</div>
+			<h3>Ecco tutti gli album dell'autore</h3>
 		</div>
 		<div class="jumbotron">
+			<h3>Dati Autore</h3>
+			Id:
+			<div th:text="${autore.id}">AutoreId</div>
+			Nome:
+			<div th:text="${autore.nome}">AutoreId</div>
+			Cognome:
+			<div th:text="${autore.cognome}">AutoreId</div>
+		</div>
+		<div class="jumbotron">
+			<h3>Foto dell'album</h3>
 			<div th:each="album : ${gliAlbum}">
 				<span> <a th:href="@{'/albumAdmin' + '/' + ${album.id}}"
 					th:text="${album.id}">Rossi</a>

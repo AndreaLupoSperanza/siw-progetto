@@ -30,7 +30,7 @@
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/login">Login</a></li>
+					<li><a href="/ordini">Pagina Amministratore</a></li>
 				</ul>
 			</div>
 		</div>
@@ -38,8 +38,8 @@
 
 	<div class="container">
 		<div class="jumbotron">
-			<h1>Aggiunta Autore</h1>
-			<p>Inserisci i dati dell'autore</p>
+			<h1>Aggiunta Album</h1>
+			<p>Inserisci i dati dell'album</p>
 			<form th:action="@{/addAlbum}" method="POST" th:object="${album}">
 				<table>
 					<tr>
